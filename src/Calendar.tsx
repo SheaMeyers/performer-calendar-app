@@ -10,6 +10,7 @@ interface Event {
     start: Date;
     end: Date;
     hexColor: string;
+    tooltip?: string; 
 }
 
 const ReactBigCalendar = () => {
@@ -29,6 +30,10 @@ const ReactBigCalendar = () => {
 
     }
 
+    const eventTooltipGetter = (event: Event) => {
+        return event.tooltip || event.title;
+    }
+
     return (
         <div>
             <Calendar
@@ -37,6 +42,7 @@ const ReactBigCalendar = () => {
                 startAccessor="start"
                 endAccessor="end"
                 style={{ height: 500 }}
+                tooltipAccessor={eventTooltipGetter}
                 eventPropGetter={eventStyleGetter}
             />
         </div>
