@@ -1,11 +1,12 @@
 import { createStore } from "redux";
+import bandsList from './exampleBands';
 
 export interface BandsState {
     bands: string[];
 }
 
 const initialState = {
-    bands: [],
+    bands: bandsList,
 };
 
 export type Action = { type: "ADD_BAND"; payload: string } | { type: "REMOVE_BAND"; payload: string };

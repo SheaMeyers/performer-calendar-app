@@ -1,6 +1,8 @@
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { useSelector } from "react-redux";
+import { BandsState } from "./BandsReduxStore";
 import myEventsList from './exampleEvents';
 
 
@@ -14,6 +16,11 @@ interface Event {
 }
 
 const ReactBigCalendar = () => {
+
+    const bands = useSelector<BandsState, BandsState["bands"]>(
+        (state) => state.bands
+      );
+
     const eventStyleGetter = (event: Event) => {
         var backgroundColor = '#' + event.hexColor;
         var style = {
@@ -38,7 +45,7 @@ const ReactBigCalendar = () => {
         <div>
             <Calendar
                 localizer={momentLocalizer(moment)}
-                events={myEventsList}
+                events={myEventsList.filter(event => bands.includes(event.title))}
                 startAccessor="start"
                 endAccessor="end"
                 style={{ height: 500 }}

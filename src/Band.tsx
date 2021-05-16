@@ -9,11 +9,7 @@ interface BandProps {
 }
 
 const Band = (props: BandProps) => {
-    const [checked, setChecked] = React.useState(false);
-    
-    const bands = useSelector<BandsState, BandsState["bands"]>(
-        (state) => state.bands
-      );
+    const [checked, setChecked] = React.useState(true);
 
     const dispatch = useDispatch();
 
@@ -28,13 +24,6 @@ const Band = (props: BandProps) => {
 
     return (
         <div>
-            <p>--- Bands List ---</p>
-            <ul>
-                {bands.map((band) => {
-                return <li key={band}>{band}</li>;
-                })}
-            </ul>
-            <p>------</p>
             <Checkbox
                 checked={checked}
                 onChange={handleChange}
