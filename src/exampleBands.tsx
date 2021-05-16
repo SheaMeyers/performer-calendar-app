@@ -1,0 +1,1 @@
+export default ['Tyr', 'Powerwolf']
