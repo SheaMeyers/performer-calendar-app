@@ -17,13 +17,13 @@ const Band = (props: BandProps) => {
 
     const dispatch = useDispatch();
 
-    const onAddBand = (band: string) => {
-        dispatch({ type: "ADD_BAND", payload: band });
-    };
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
-        onAddBand(props.name);
+        if (event.target.checked) {
+            dispatch({ type: "ADD_BAND", payload: props.name });
+        } else {
+            dispatch({ type: "REMOVE_BAND", payload: props.name });
+        }
     };
 
     return (

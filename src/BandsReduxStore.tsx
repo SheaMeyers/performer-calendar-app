@@ -8,7 +8,7 @@ const initialState = {
     bands: [],
 };
 
-export type Action = { type: "ADD_BAND"; payload: string };
+export type Action = { type: "ADD_BAND"; payload: string } | { type: "REMOVE_BAND"; payload: string };
 
 export const bandsReducer = (
     state: BandsState = initialState,
@@ -17,6 +17,9 @@ export const bandsReducer = (
     switch (action.type) {
         case "ADD_BAND": {
             return { ...state, bands: [...state.bands, action.payload] };
+        }
+        case "REMOVE_BAND": {
+            return { ...state, bands: state.bands.filter(band => band !== action.payload) };
         }
         default:
             return state;
