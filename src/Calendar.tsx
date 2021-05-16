@@ -12,6 +12,7 @@ interface Event {
     start: Date;
     end: Date;
     hexColor: string;
+    seatGeekUrl: string;
     tooltip?: string; 
 }
 
@@ -41,6 +42,10 @@ const ReactBigCalendar = () => {
         return event.tooltip || event.title;
     }
 
+    const handleOnSelectEvent = (event: Event, syntheticEvent: React.SyntheticEvent) => {
+        window.open(event.seatGeekUrl, "_blank");
+    }
+
     return (
         <div>
             <Calendar
@@ -51,6 +56,7 @@ const ReactBigCalendar = () => {
                 style={{ height: 500 }}
                 tooltipAccessor={eventTooltipGetter}
                 eventPropGetter={eventStyleGetter}
+                onSelectEvent={handleOnSelectEvent}
             />
         </div>
     )
