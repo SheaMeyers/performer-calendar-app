@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
-import { useSelector, useDispatch } from "react-redux";
-import { BandsState } from "./BandsReduxStore";
+import { useDispatch } from "react-redux";
 
 
 interface BandProps {
@@ -9,7 +8,7 @@ interface BandProps {
 }
 
 const Band = (props: BandProps) => {
-    const [checked, setChecked] = React.useState(true);
+    const [checked, setChecked] = useState<boolean>(true);
 
     const dispatch = useDispatch();
 
