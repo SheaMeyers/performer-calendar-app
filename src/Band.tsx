@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 interface BandProps {
     name: string;
+    color: string;
 }
 
 const Band = (props: BandProps) => {
@@ -26,7 +27,7 @@ const Band = (props: BandProps) => {
             <Checkbox
                 checked={checked}
                 onChange={handleChange}
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                style={{color: `#${props.color}`}}
             />
             <p>{props.name}</p>
         </div>

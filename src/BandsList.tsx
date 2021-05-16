@@ -10,7 +10,7 @@ const BandsList = () => {
         <div className="Bands-List">
             {myBandsList.map(band => {
                 return (
-                    <Band name={band} />
+                    <Band name={band.name} color={band.color}/>
                 )
             })}
         </div>

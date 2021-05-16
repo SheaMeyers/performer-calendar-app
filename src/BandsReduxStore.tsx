@@ -6,7 +6,7 @@ export interface BandsState {
 }
 
 const initialState = {
-    bands: bandsList,
+    bands: bandsList.map(band => band.name),
 };
 
 export type Action = { type: "ADD_BAND"; payload: string } | { type: "REMOVE_BAND"; payload: string };
