@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Band from './Band';
 import myBandsList from './exampleBands';
 
 
@@ -9,7 +10,7 @@ const BandsList = () => {
         <div className="Bands-List">
             {myBandsList.map(band => {
                 return (
-                    <p>{band}</p>
+                    <Band name={band} />
                 )
             })}
         </div>
