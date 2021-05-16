@@ -53,7 +53,7 @@ const ReactBigCalendar = () => {
                 events={myEventsList.filter(event => bands.includes(event.title))}
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 500 }}
+                style={{ height: 600, width: 600 }}
                 tooltipAccessor={eventTooltipGetter}
                 eventPropGetter={eventStyleGetter}
                 onSelectEvent={handleOnSelectEvent}
