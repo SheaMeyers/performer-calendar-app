@@ -11,13 +11,13 @@ interface Props {
     handleModalClose: Function
 }
 
-const SignUpModal = (props: Props) => {
+const SignInModal = (props: Props) => {
     const [feedbackMessage, setFeedbackMessage] = useState<string>('');
 
     return (
         <Modal
             isOpen={props.isOpen}
-            contentLabel="Sign Up Modal"
+            contentLabel="Sign In Modal"
             closeTimeoutMS={200}
             className="modal"
         >
@@ -29,28 +29,19 @@ const SignUpModal = (props: Props) => {
                 const elements = event.target.elements;
                 const email = elements.email.value;
                 const password = elements.password.value;
-                const secondPassword = elements.secondPassword.value;
-                const isSupervisor = elements.checkbox.checked;
 
-                const passwordsMatch = password === secondPassword;
-                const isStrongPassword = password.length > 8 && /\d/.test(password);
-
-                // if (passwordsMatch && isStrongPassword) {
-                //     axios.post(`${domainUrl}/backend/sign-up`, 
+                
+                //     axios.post(`${domainUrl}/backend/sign-in`, 
                 //         {
                 //             email: email,
                 //             password: password,
                 //         })
-                //         .then(_ => {setFeedbackMessage("Please check your email for further instructions")
+                //         .then(_ => Refresh page)
                 //         })
-                //         .catch(_ => setFeedbackMessage("Unable to sign up.  Please try again later"));
-                // } else if (!isStrongPassword) {
-                //     setFeedbackMessage("Password must be at least 8 characters long with at least one number");
-                // } else {
-                //     setFeedbackMessage("Passwords do not match");
-                // }
+                //         .catch(_ => setFeedbackMessage("Unable to sign in.  Please try again"));
+                
             }}>
-                <h2>Sign Up</h2>
+                <h2>Sign In</h2>
                 <TextField
                     required
                     id="outlined-email-input"
@@ -69,18 +60,9 @@ const SignUpModal = (props: Props) => {
                     margin="normal"
                     variant="outlined"
                 />
-                <TextField
-                    required
-                    id="outlined-second-password-input"
-                    label="Re-enter Password"
-                    type="password"
-                    name="secondPassword"
-                    margin="normal"
-                    variant="outlined"
-                />
                 {feedbackMessage && <p>{feedbackMessage}</p>}
                 <Button variant="contained" type="submit" color="primary">
-                    Sign Up
+                    Sign In
                 </Button>
                 <Button variant="contained" onClick={event => props.handleModalClose()}>
                     Cancel
@@ -90,4 +72,4 @@ const SignUpModal = (props: Props) => {
     );
 };
 
-export default SignUpModal;
+export default SignInModal;
