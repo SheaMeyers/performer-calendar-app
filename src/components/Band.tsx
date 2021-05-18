@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useDispatch } from "react-redux";
-import './Band.css';
+import '../css/Band.css';
 
 
 interface BandProps {

@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import bandsList from './exampleBands';
+import bandsList from '../exampleBands';
 
 export interface BandsState {
     bands: string[];
