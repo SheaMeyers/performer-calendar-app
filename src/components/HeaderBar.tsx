@@ -82,6 +82,7 @@ const HeaderBar = () => {
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
                     onChange={handleChange}
+                    value={''}
                     label="signIn/Sign Up"
                   >
                     <MenuItem value={"signIn"}>Sign In</MenuItem>
