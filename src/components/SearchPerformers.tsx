@@ -60,8 +60,8 @@ const SearchPerformers = () => {
             <Paper className={classes.root}>
                 <InputBase
                     className={classes.input}
-                    placeholder="Search Performers"
-                    inputProps={{ 'aria-label': 'search performers' }}
+                    placeholder="Add Performers"
+                    inputProps={{ 'aria-label': 'Add performers' }}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search">
                     <SearchIcon />
