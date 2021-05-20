@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import '../css/AccountSettings.css';
+import SearchPerformers from './SearchPerformers';
 import Button from '@material-ui/core/Button';
 
 
-const UpdatePassword = () => {
+const AccountSettings = () => {
     const [feedbackMessage, setFeedbackMessage] = useState<string>('');
     
     return (
         <div className="Account-Settings-Container">
             <div className="Account-Settings">
                 <h2>Account Settings</h2>
+                <SearchPerformers />
                 <Button variant="contained">
                     Change Password
                 </Button>
@@ -22,4 +24,4 @@ const UpdatePassword = () => {
 
 }
 
-export default UpdatePassword;
+export default AccountSettings;
