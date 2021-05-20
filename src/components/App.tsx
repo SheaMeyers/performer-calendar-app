@@ -1,21 +1,16 @@
 import React from 'react';
-import '../css/App.css';
-import { Provider } from "react-redux";
-import BandsList from './BandsList';
-import Calendar from './Calendar';
-import HeaderBar from './HeaderBar';
-import { store } from './BandsReduxStore';
+import { Router, Route, Switch } from "react-router-dom";
+import history from "../history";
+import Home from './Home';
 
-function App() {
+const App = () => {
   return (
-    <Provider store={store}>
-      <HeaderBar />
-      <div className="App">
-        <BandsList />
-        <Calendar />
-      </div>
-    </Provider>
-  );
+    <Router history={history}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+        </Switch>
+    </Router>
+);
 }
 
 export default App;
