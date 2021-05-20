@@ -1,0 +1,18 @@
+.Account-Settings-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Account-Settings {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+}
+
+.Account-Settings>button {
+    margin: 0.5rem;
+}
