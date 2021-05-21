@@ -10,7 +10,8 @@ import UserPerformersList from './UserPerformersList';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
-      padding: '1rem'
+      padding: '1rem',
+      background: 'lightgrey'
     },
   }),
 );
