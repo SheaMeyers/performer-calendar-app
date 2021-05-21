@@ -1,10 +1,12 @@
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import { useSelector } from "react-redux";
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import '../css/Calendar.css';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import { BandsState } from "./BandsReduxStore";
 import myEventsList from '../exampleEvents';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
 interface Event {
@@ -16,6 +18,14 @@ interface Event {
     seatGeekUrl: string;
     tooltip?: string; 
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        card: {
+            margin: '1rem'
+        }
+    }),
+);
 
 const ReactBigCalendar = () => {
 
@@ -47,19 +57,23 @@ const ReactBigCalendar = () => {
         window.open(event.seatGeekUrl, "_blank");
     }
 
+    const classes = useStyles();
+
     return (
-        <div className="Calendar">
-            <Calendar
-                localizer={momentLocalizer(moment)}
-                events={myEventsList.filter((event: Event) => bands.includes(event.title))}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: 500, width: 700 }}
-                tooltipAccessor={eventTooltipGetter}
-                eventPropGetter={eventStyleGetter}
-                onSelectEvent={handleOnSelectEvent}
-            />
-        </div>
+        <Card className={classes.card}>
+            <CardContent>
+                <Calendar
+                    localizer={momentLocalizer(moment)}
+                    events={myEventsList.filter((event: Event) => bands.includes(event.title))}
+                    startAccessor="start"
+                    endAccessor="end"
+                    style={{ height: 500, width: 700 }}
+                    tooltipAccessor={eventTooltipGetter}
+                    eventPropGetter={eventStyleGetter}
+                    onSelectEvent={handleOnSelectEvent}
+                />
+            </CardContent>
+        </Card>
     )
 }
 
