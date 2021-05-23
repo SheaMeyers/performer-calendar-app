@@ -55,8 +55,6 @@ const HeaderBar = () => {
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         // Open correct modal
-        console.log(event.target);
-        console.log(event.target.value);
         if (event.target.value === 'signUp') {
           setShouldSignUpModalBeOpen(true);
         } else if (event.target.value === 'forgotPassword') {
