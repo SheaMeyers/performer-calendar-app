@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
+import { BACKEND_URL, BACKEND_KEY } from '../../constants';
 import '../../css/Modal.css';
 
 
@@ -29,16 +30,14 @@ const ForgotPasswordModal = (props: Props) => {
                 const elements = event.target.elements;
                 const email = elements.email.value;
 
-                
-                //     axios.post(`${domainUrl}/backend/sign-in`, 
-                //         {
-                //             email: email,
-                //             password: password,
-                //         })
-                //         .then(_ => Refresh page)
-                //         })
-                //         .catch(_ => setFeedbackMessage("Unable to sign in.  Please try again"));
-                
+                setFeedbackMessage("Sending email...");
+
+                axios.post(`${BACKEND_URL}/backend/rest-auth/password/reset/`, 
+                    {
+                        email: email,
+                    })
+                    .then(_ => setFeedbackMessage("Please check email to set new password"))
+                    .catch(_ => setFeedbackMessage("Unable to send email.  Please try again")); 
             }}>
                 <h2>Forgot Password</h2>
                 <TextField
