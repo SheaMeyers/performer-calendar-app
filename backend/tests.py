@@ -4,11 +4,6 @@ from rest_framework.authtoken.models import Token
 
 from backend.models import User
 
-# TODO Add tests for
-#  Sign up/Registration
-#  Forgot password
-#  Change password
-
 
 class LoginTests(TestCase):
 
@@ -53,3 +48,83 @@ class LogoutTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Token.objects.exists())
+
+
+class PasswordResetTests(TestCase):
+
+    def setUp(self) -> None:
+        self.user = User.objects.create(email='email@email.com')
+        self.user.set_password('password')
+        self.user.save()
+
+    def test_password_reset_send_email_to_reset_password(self):
+        rest_password_url = reverse('rest_password_reset')
+        data = {
+            'email': self.user.email
+        }
+        response = self.client.post(rest_password_url, data=data)
+
+        self.assertEqual(response.status_code, 200)
+
+
+class PasswordChangeTests(TestCase):
+    def setUp(self) -> None:
+        self.user = User.objects.create(email='email@email.com')
+        self.user.set_password('password')
+        self.user.save()
+        self.token = Token.objects.create(user=self.user)
+        self.client.force_login(self.user)
+
+    def test_change_password_changes_password(self):
+        rest_password_url = reverse('rest_password_change')
+        data = {
+            'new_password1': 'newPassword1',
+            'new_password2': 'newPassword1',
+            'old_password': 'password'
+        }
+        response = self.client.post(rest_password_url, data=data)
+
+        self.assertEqual(response.status_code, 200)
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password('newPassword1'))
+        self.assertFalse(self.user.check_password('password'))
+
+
+class RegistrationTests(TestCase):
+
+    def test_registration_creates_account(self):
+        data = {
+            'email': 'email@email.com',
+            'password1': 'P@ssword123',
+            'password2': 'P@ssword123'
+        }
+        register_url = reverse('rest_register')
+        response = self.client.post(register_url, data=data)
+
+        self.assertEqual(response.status_code, 201)
+        self.assertTrue(Token.objects.filter(key=response.json()['key']).exists())
+        user = User.objects.get()
+        self.assertEqual(user.email, 'email@email.com')
+        self.assertTrue(user.check_password('P@ssword123'))
+
+    def test_registration_fails_with_too_common_password(self):
+        data = {
+            'email': 'email@email.com',
+            'password1': 'password',
+            'password2': 'password'
+        }
+        register_url = reverse('rest_register')
+        response = self.client.post(register_url, data=data)
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_registration_fails_with_mismatching_password(self):
+        data = {
+            'email': 'email@email.com',
+            'password1': 'P@ssword123',
+            'password2': 'P@ssword456'
+        }
+        register_url = reverse('rest_register')
+        response = self.client.post(register_url, data=data)
+
+        self.assertEqual(response.status_code, 400)
