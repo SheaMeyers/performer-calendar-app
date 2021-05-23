@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
-import { BACKEND_URL, BACKEND_KEY } from '../../constants';
+import { BACKEND_URL } from '../../constants';
 import '../../css/Modal.css';
 
 
