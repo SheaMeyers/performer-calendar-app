@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'backend',
 ]
 
 
@@ -153,3 +154,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PAGE_CACHE = 60 * 60  # cache for 1 hour
 
+AUTH_USER_MODEL = 'backend.User'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False

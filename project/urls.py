@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf import settings
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.views.decorators.cache import cache_page
 from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('backend/', include("backend.urls")),
     re_path(r'^.*', cache_page(settings.PAGE_CACHE)(TemplateView.as_view(template_name='index.html'))),
 ]
