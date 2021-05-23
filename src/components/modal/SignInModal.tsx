@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
+import { BACKEND_URL, BACKEND_KEY } from '../../constants';
 import '../../css/Modal.css';
 
 
@@ -29,16 +30,19 @@ const SignInModal = (props: Props) => {
                 const elements = event.target.elements;
                 const email = elements.email.value;
                 const password = elements.password.value;
-
                 
-                //     axios.post(`${domainUrl}/backend/sign-in`, 
-                //         {
-                //             email: email,
-                //             password: password,
-                //         })
-                //         .then(_ => Refresh page)
-                //         })
-                //         .catch(_ => setFeedbackMessage("Unable to sign in.  Please try again"));
+                setFeedbackMessage("Signing in...");
+
+                axios.post(`${BACKEND_URL}/backend/rest-auth/login/`, 
+                    {
+                        email: email,
+                        password: password,
+                    })
+                    .then(response => {
+                        localStorage.setItem(BACKEND_KEY, response.data.key);
+                        props.handleModalClose();
+                    })
+                    .catch(_ => setFeedbackMessage("Unable to sign in.  Please try again"));
                 
             }}>
                 <h2>Sign In</h2>
