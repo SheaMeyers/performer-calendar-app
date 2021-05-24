@@ -3,7 +3,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
-import { BACKEND_URL, BACKEND_KEY } from '../../constants';
+import { BACKEND_URL, BACKEND_KEY, EMAIL_KEY } from '../../constants';
 import '../../css/Modal.css';
 
 
@@ -45,6 +45,7 @@ const SignUpModal = (props: Props) => {
                         })
                         .then(response => {
                             localStorage.setItem(BACKEND_KEY, response.data.key);
+                            localStorage.setItem(EMAIL_KEY, email);
                             props.handleModalClose();
                         })
                         .catch(error => {

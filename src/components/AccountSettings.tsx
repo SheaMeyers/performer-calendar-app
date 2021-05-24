@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import SearchPerformers from './SearchPerformers';
 import UserPerformersList from './UserPerformersList';
 import history from '../history';
-import { BACKEND_URL, BACKEND_KEY } from '../constants';
+import { BACKEND_URL, BACKEND_KEY, EMAIL_KEY } from '../constants';
 import '../css/AccountSettings.css';
 
 
@@ -61,11 +61,13 @@ const AccountSettings = () => {
                                 }
                             }).then(_ => {
                                 localStorage.removeItem(BACKEND_KEY);
+                                localStorage.removeItem(EMAIL_KEY);
                                 history.replace('/');
                             }).catch(error => {
                                 console.log('error');
                                 console.log(error);
                                 localStorage.removeItem(BACKEND_KEY);
+                                localStorage.removeItem(EMAIL_KEY);
                                 history.replace('/');
                             })
                         }}
