@@ -49,13 +49,13 @@ const SignedInDropdown = () => {
     return (
         <Fragment>
             <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel id="demo-simple-select-outlined-label">{localStorage.getItem(EMAIL_KEY)}</InputLabel>
+                <InputLabel id="demo-simple-select-outlined-label">Logged In</InputLabel>
                 <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
                     onChange={handleChange}
                     value={''}
-                    label={localStorage.getItem(EMAIL_KEY)}
+                    label="Logged In"
                 >
                   <MenuItem value={"accountSettings"}>Account Settings</MenuItem>
                   <MenuItem value={"logout"}>Logout</MenuItem>
