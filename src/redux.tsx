@@ -23,10 +23,10 @@ export const performerReducer = (
 ) => {
     switch (action.type) {
         case "ADD_PERFORMER": {
-            return { ...state, performer: [...state.performers, action.payload] };
+            return { ...state, performers: [...state.performers, action.payload] };
         }
         case "REMOVE_PERFORMER": {
-            return { ...state, performer: state.performers.filter(performer => performer !== action.payload) };
+            return { ...state, performers: state.performers.filter(performer => performer !== action.payload) };
         }
         case "ADD_EMAIL": {
             return { ...state, email: action.payload };

@@ -2,8 +2,8 @@ export default [
   {
     id: 0,
     title: 'Tyr',
-    start: new Date(2021, 4, 9, 17, 0, 0),
-    end: new Date(2021, 4, 9, 20, 0, 0),
+    start: new Date("2021-05-15T11:00:00"),
+    end: new Date("2021-05-15T11:00:00"),
     hexColor: 'ff0000',
     tooltip: "Will this show?",
     seatGeekUrl: "https://www.seatgeek.com"
