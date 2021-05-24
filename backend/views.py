@@ -23,4 +23,4 @@ class PasswordResetConfirmView(APIView):
         user.set_unusable_password()
         user.save()
         token, _ = Token.objects.get_or_create(user=user)
-        return redirect(f'/update-password?token={urlsafe_base64_encode(bytes(token.key, encoding="UTF-8"))}')
+        return redirect(f'/update-password?token={urlsafe_base64_encode(bytes(token.key, encoding="UTF-8"))}&email={user.email}')

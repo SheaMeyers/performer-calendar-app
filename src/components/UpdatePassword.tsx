@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from "@material-ui/core/TextField";
-import { BACKEND_KEY, BACKEND_URL } from '../constants';
+import { BACKEND_KEY, BACKEND_URL, EMAIL_KEY } from '../constants';
 import history from '../history';
 import '../css/UpdatePassword.css';
 
 
 const UpdatePassword = () => {
     const [feedbackMessage, setFeedbackMessage] = useState<string>('');
+    const dispatch = useDispatch();
 
     const encodedToken = new URLSearchParams(window.location.search).get('token');
+    const email = new URLSearchParams(window.location.search).get('email');
     if (encodedToken) {
         localStorage.setItem(BACKEND_KEY, atob(encodedToken));
     }
@@ -48,7 +51,10 @@ const UpdatePassword = () => {
                                         }
                                     })
                                     .then(_ => {
-                                        
+                                        if (email) {
+                                            localStorage.setItem(EMAIL_KEY, email);
+                                            dispatch({ type: "ADD_EMAIL", payload: email });
+                                        }
                                         history.replace('/');
                                     })
                                     .catch(_ => {
