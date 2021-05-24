@@ -125,3 +125,22 @@ class RegistrationTests(TestCase):
         response = self.client.post(register_url, data=data)
 
         self.assertEqual(response.status_code, 400)
+
+
+class AddPerformerTests(TestCase):
+    def setUp(self) -> None:
+        self.user = User.objects.create(email='email@email.com')
+        self.user.set_password('password')
+        self.user.save()
+        self.token = Token.objects.create(user=self.user)
+
+    def test_change_password_changes_password(self):
+        add_performer_url = reverse('add_performer')
+        data = {
+            'id': 1069,
+            'name': 'Korn',
+        }
+        response = self.client.post(add_performer_url, data=data, HTTP_AUTHORIZATION=f"Token {self.token.key}")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.user.performers.count(), 1)

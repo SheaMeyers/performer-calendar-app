@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
+from .models import Performer
 from .serializers import SeatGeekPerformerSerializer
 
 UserModel = get_user_model()
@@ -49,3 +50,17 @@ class SearchPerformers(APIView):
         data = SeatGeekPerformerSerializer(response.json().get("performers", []), many=True).data
 
         return Response(status=200, data=data)
+
+
+class AddPerformer(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request: Request) -> Response:
+        data = SeatGeekPerformerSerializer(request.data).data
+
+        perfomer, _ = Performer.objects.get_or_create(**data)
+
+        request.user.performers.add(perfomer)
+
+        return Response(status=200)

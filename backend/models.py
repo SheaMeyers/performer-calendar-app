@@ -13,6 +13,6 @@ class User(AbstractUser):
 
 
 class Performer(models.Model):
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=280)
-    seat_geek_id = models.IntegerField()
-    user = models.ManyToManyField(User)
+    user = models.ManyToManyField(User, related_name='performers')
