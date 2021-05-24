@@ -42,6 +42,14 @@ const AccountSettings = () => {
                     </Paper>
                     <Button 
                         variant="contained" 
+                        color="primary" 
+                        className={classes.button}
+                        onClick={_ => history.push('/') }
+                    >
+                        Home
+                    </Button>
+                    <Button 
+                        variant="contained" 
                         className={classes.button}
                         onClick={_ => history.push('/update-password')}
                     >
@@ -49,7 +57,7 @@ const AccountSettings = () => {
                     </Button>
                     <Button 
                         variant="contained" 
-                        color="primary" 
+                        color="secondary" 
                         className={classes.button}
                         onClick={_ => handleLogout() }
                     >

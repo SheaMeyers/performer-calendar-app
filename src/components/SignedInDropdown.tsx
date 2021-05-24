@@ -25,7 +25,9 @@ const SignedInDropdown = () => {
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         // Handle correct selection
-        if (event.target.value === 'accountSettings') {
+        if (event.target.value === 'home') {
+          history.push('/');
+        } else if (event.target.value === 'accountSettings') {
           history.push('/account-settings');
         } else if (event.target.value === 'logout') {
           handleLogout()
@@ -43,6 +45,7 @@ const SignedInDropdown = () => {
                     value={''}
                     label="Logged In"
                 >
+                  <MenuItem value={"home"}>Home</MenuItem>
                   <MenuItem value={"accountSettings"}>Account Settings</MenuItem>
                   <MenuItem value={"logout"}>Logout</MenuItem>
                 </Select>
