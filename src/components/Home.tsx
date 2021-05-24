@@ -1,5 +1,5 @@
 import React from 'react';
-import BandsList from './BandsList';
+import PerformerList from './PerformerList';
 import Calendar from './Calendar';
 import '../css/Home.css';
 
@@ -7,7 +7,7 @@ import '../css/Home.css';
 const Home = () => {
   return (
       <div className="App">
-        <BandsList />
+        <PerformerList />
         <Calendar />
       </div>
   );

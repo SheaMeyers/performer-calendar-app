@@ -2,11 +2,11 @@ import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Band from './Band';
-import myBandsList from '../exampleBands';
+import Performer from './Performer';
+import myPerformersList from '../examplePerformers';
 
 
-interface BandType {
+interface PerformerType {
     name: string;
     color: string;
 }
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const BandsList = () => {
+const PerformersList = () => {
 
     const classes = useStyles();
 
@@ -27,9 +27,9 @@ const BandsList = () => {
         <Card className={classes.card}>
             <CardContent>
                 <h2>Performers</h2>
-                {myBandsList.map((band: BandType) => {
+                {myPerformersList.map((performer: PerformerType) => {
                     return (
-                        <Band key={band.name} name={band.name} color={band.color}/>
+                        <Performer key={performer.name} name={performer.name} color={performer.color}/>
                     )
                 })}
             </CardContent>
@@ -38,4 +38,4 @@ const BandsList = () => {
 
 }
 
-export default BandsList;
+export default PerformersList;

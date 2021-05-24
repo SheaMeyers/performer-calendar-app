@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useDispatch } from "react-redux";
-import '../css/Band.css';
+import '../css/Performer.css';
 
 
-interface BandProps {
+interface PerformerProps {
     name: string;
     color: string;
 }
 
-const Band = (props: BandProps) => {
+const Performer = (props: PerformerProps) => {
     const [checked, setChecked] = useState<boolean>(true);
 
     const dispatch = useDispatch();
@@ -17,14 +17,14 @@ const Band = (props: BandProps) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
         if (event.target.checked) {
-            dispatch({ type: "ADD_BAND", payload: props.name });
+            dispatch({ type: "ADD_PERFORMER", payload: props.name });
         } else {
-            dispatch({ type: "REMOVE_BAND", payload: props.name });
+            dispatch({ type: "REMOVE_PERFORMER", payload: props.name });
         }
     };
 
     return (
-        <div className="Band-div">
+        <div className="Performer-div">
             <Checkbox
                 checked={checked}
                 onChange={handleChange}
@@ -36,4 +36,4 @@ const Band = (props: BandProps) => {
 
 }
 
-export default Band;
+export default Performer;

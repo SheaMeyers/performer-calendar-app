@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { BandsState } from "./BandsReduxStore";
+import { PerformerState } from "../redux";
 import NotSignedInDropdown from './NotSignedInDropdown';
 import SignedInDropdown from './SignedInDropdown';
 
@@ -34,7 +34,7 @@ const HeaderBar = () => {
 
     const classes = useStyles();
 
-    const email = useSelector<BandsState, BandsState["email"]>(
+    const email = useSelector<PerformerState, PerformerState["email"]>(
       (state) => state.email
     );
 

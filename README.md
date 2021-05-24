@@ -1,4 +1,4 @@
-# Band Calendar App
+# Performer Calendar App
 
 ## Compiling static resource
 

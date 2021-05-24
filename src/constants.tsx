@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from './history';
-import { store } from './components/BandsReduxStore';
+import { store } from './redux';
 
 const BACKEND_URL = 'http://localhost:8000';
 

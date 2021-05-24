@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import UserPerformer from './UserPerformer';
-import myBandsList from '../exampleBands';
+import myPerformersList from '../examplePerformers';
 
-interface BandType {
+interface PerformerType {
     name: string;
     color: string;
 }
@@ -12,9 +12,9 @@ const UserPerformersList = () => {
 
     return (
         <Fragment>
-            {myBandsList.map((band: BandType) => {
+            {myPerformersList.map((performer: PerformerType) => {
                 return (
-                    <UserPerformer key={band.name} name={band.name}/>
+                    <UserPerformer key={performer.name} name={performer.name}/>
                 )
             })}
         </Fragment>
