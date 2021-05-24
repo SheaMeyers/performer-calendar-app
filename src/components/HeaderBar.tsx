@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NotSignedInDropdown from './NotSignedInDropdown';
+import SignedInDropdown from './SignedInDropdown';
+import { BACKEND_KEY, EMAIL_KEY } from '../constants';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,7 +43,13 @@ const HeaderBar = () => {
                         Indepently operated. Powered by SeatGeek API (Thanks SeatGeek!).
                     </Typography>
                 </div>
-                <NotSignedInDropdown />
+                {
+                  localStorage.getItem(BACKEND_KEY) && localStorage.getItem(EMAIL_KEY)
+                  ?
+                  <SignedInDropdown />
+                  :
+                  <NotSignedInDropdown />
+                }
             </Toolbar>
         </AppBar>
     )

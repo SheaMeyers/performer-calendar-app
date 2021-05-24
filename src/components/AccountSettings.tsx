@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 const AccountSettings = () => {
-    const [feedbackMessage, setFeedbackMessage] = useState<string>('');
     const classes = useStyles();
 
     return (
@@ -63,9 +62,7 @@ const AccountSettings = () => {
                                 localStorage.removeItem(BACKEND_KEY);
                                 localStorage.removeItem(EMAIL_KEY);
                                 history.replace('/');
-                            }).catch(error => {
-                                console.log('error');
-                                console.log(error);
+                            }).catch(_ => {
                                 localStorage.removeItem(BACKEND_KEY);
                                 localStorage.removeItem(EMAIL_KEY);
                                 history.replace('/');
