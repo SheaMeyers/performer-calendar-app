@@ -11,6 +11,11 @@ import '../css/UpdatePassword.css';
 
 const UpdatePassword = () => {
     const [feedbackMessage, setFeedbackMessage] = useState<string>('');
+
+    const encodedToken = new URLSearchParams(window.location.search).get('token');
+    if (encodedToken) {
+        localStorage.setItem(BACKEND_KEY, atob(encodedToken));
+    }
     
     return (
         <div className="Update-Password-Container">
@@ -43,7 +48,8 @@ const UpdatePassword = () => {
                                         }
                                     })
                                     .then(_ => {
-                                        history.push('/');
+                                        
+                                        history.replace('/');
                                     })
                                     .catch(_ => {
                                         setFeedbackMessage("Unable to change password.  Please try a more secure password or try again later.")
