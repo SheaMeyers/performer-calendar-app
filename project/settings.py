@@ -175,3 +175,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
+SEAT_GEEK_CLIENT_ID = 'MjE5Mjg3MTN8MTYyMTA3ODMzNC40NDc3NDI1'

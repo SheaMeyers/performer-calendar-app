@@ -10,3 +10,9 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+
+class Performer(models.Model):
+    name = models.CharField(max_length=280)
+    seat_geek_id = models.IntegerField()
+    user = models.ManyToManyField(User)
