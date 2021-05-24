@@ -165,3 +165,21 @@ class RemovePerformerTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.user.performers.count(), 0)
         self.assertEqual(self.other_user.performers.count(), 1)
+
+
+class GetEventsTests(TestCase):
+    def setUp(self) -> None:
+        self.user = User.objects.create(email='email@email.com')
+        self.performer = Performer.objects.create(id=1069, name='Korn')
+        self.performer_2 = Performer.objects.create(id=1070, name='Slipknot')
+        self.user.performers.add(self.performer)
+        self.user.performers.add(self.performer_2)
+        self.token = Token.objects.create(user=self.user)
+
+    def test_add_performer_adds_performer(self):
+        get_events_url = reverse('get_events')
+        response = self.client.get(get_events_url, HTTP_AUTHORIZATION=f"Token {self.token.key}")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['performers'], [{'id': 1069, 'name': 'Korn'},
+                                                         {'id': 1070, 'name': 'Slipknot'}])

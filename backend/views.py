@@ -78,3 +78,26 @@ class RemovePerformer(APIView):
         request.user.performers.remove(perfomer)
 
         return Response(status=200)
+
+
+class GetEvents(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request: Request) -> Response:
+
+        performers = request.user.performers.all()
+        performers_data = SeatGeekPerformerSerializer(performers, many=True).data
+
+        # TODO Need to loop over this getting results
+        url = f"https://api.seatgeek.com/2/events?" \
+              f"performers.id={','.join([str(performer.id) for performer in performers])}&" \
+              f"client_id={settings.SEAT_GEEK_CLIENT_ID}"
+        # response = requests.get(url)
+
+        data = {
+            'performers': performers_data,
+            'events': []
+        }
+
+        return Response(status=200, data=data)
