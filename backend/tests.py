@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.authtoken.models import Token
 
-from backend.models import User
+from backend.models import User, Performer
 
 
 class LoginTests(TestCase):
@@ -134,7 +134,7 @@ class AddPerformerTests(TestCase):
         self.user.save()
         self.token = Token.objects.create(user=self.user)
 
-    def test_change_password_changes_password(self):
+    def test_add_performer_adds_performer(self):
         add_performer_url = reverse('add_performer')
         data = {
             'id': 1069,
@@ -144,3 +144,24 @@ class AddPerformerTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(self.user.performers.count(), 1)
+
+
+class RemovePerformerTests(TestCase):
+    def setUp(self) -> None:
+        self.user = User.objects.create(email='email@email.com')
+        self.other_user = User.objects.create(email='other_email@email.com')
+        self.performer = Performer.objects.create(id=1069, name='Korn')
+        self.user.performers.add(self.performer)
+        self.other_user.performers.add(self.performer)
+        self.token = Token.objects.create(user=self.user)
+
+    def test_add_performer_adds_performer(self):
+        remove_performer_url = reverse('remove_performer')
+        data = {
+            'name': 'Korn'
+        }
+        response = self.client.post(remove_performer_url, data=data, HTTP_AUTHORIZATION=f"Token {self.token.key}")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.user.performers.count(), 0)
+        self.assertEqual(self.other_user.performers.count(), 1)

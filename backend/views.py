@@ -64,3 +64,17 @@ class AddPerformer(APIView):
         request.user.performers.add(perfomer)
 
         return Response(status=200)
+
+
+class RemovePerformer(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request: Request) -> Response:
+        name = request.data.get('name')
+
+        perfomer = Performer.objects.get(name=name)
+
+        request.user.performers.remove(perfomer)
+
+        return Response(status=200)
