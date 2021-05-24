@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -8,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import SearchPerformers from './SearchPerformers';
 import UserPerformersList from './UserPerformersList';
 import history from '../history';
-import { BACKEND_URL, BACKEND_KEY, EMAIL_KEY } from '../constants';
+import { handleLogout } from '../constants';
 import '../css/AccountSettings.css';
 
 
@@ -52,22 +51,7 @@ const AccountSettings = () => {
                         variant="contained" 
                         color="primary" 
                         className={classes.button}
-                        onClick={_ => {
-                            axios.post(`${BACKEND_URL}/backend/rest-auth/logout/`, {}, { 
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
-                                }
-                            }).then(_ => {
-                                localStorage.removeItem(BACKEND_KEY);
-                                localStorage.removeItem(EMAIL_KEY);
-                                history.replace('/');
-                            }).catch(_ => {
-                                localStorage.removeItem(BACKEND_KEY);
-                                localStorage.removeItem(EMAIL_KEY);
-                                history.replace('/');
-                            })
-                        }}
+                        onClick={_ => handleLogout() }
                     >
                         Logout
                     </Button>

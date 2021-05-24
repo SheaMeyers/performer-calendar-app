@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useSelector } from "react-redux";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { BandsState } from "./BandsReduxStore";
 import NotSignedInDropdown from './NotSignedInDropdown';
 import SignedInDropdown from './SignedInDropdown';
-import { BACKEND_KEY, EMAIL_KEY } from '../constants';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,10 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-
 const HeaderBar = () => {
 
     const classes = useStyles();
+
+    const email = useSelector<BandsState, BandsState["email"]>(
+      (state) => state.email
+    );
 
     return (
         <AppBar position="static" className={classes.headerBar}>
@@ -44,7 +48,7 @@ const HeaderBar = () => {
                     </Typography>
                 </div>
                 {
-                  localStorage.getItem(BACKEND_KEY) && localStorage.getItem(EMAIL_KEY)
+                  email
                   ?
                   <SignedInDropdown />
                   :
