@@ -40,11 +40,10 @@ class LogoutTests(TestCase):
     def setUp(self) -> None:
         self.user = User.objects.create(email='email@email.com')
         self.token = Token.objects.create(user=self.user)
-        self.client.force_login(self.user)
 
     def test_logout_deletes_token(self):
         logout_url = reverse('rest_logout')
-        response = self.client.post(logout_url)
+        response = self.client.post(logout_url, HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Token.objects.exists())
@@ -73,16 +72,14 @@ class PasswordChangeTests(TestCase):
         self.user.set_password('password')
         self.user.save()
         self.token = Token.objects.create(user=self.user)
-        self.client.force_login(self.user)
 
     def test_change_password_changes_password(self):
         rest_password_url = reverse('rest_password_change')
         data = {
             'new_password1': 'newPassword1',
             'new_password2': 'newPassword1',
-            'old_password': 'password'
         }
-        response = self.client.post(rest_password_url, data=data)
+        response = self.client.post(rest_password_url, data=data, HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
         self.assertEqual(response.status_code, 200)
         self.user.refresh_from_db()

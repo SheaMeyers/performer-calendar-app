@@ -169,3 +169,9 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "seatgeekcalendar@gmail.com"
 EMAIL_HOST_PASSWORD = "wheyzgqosexsvzck"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
