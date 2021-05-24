@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'band_calendar_app',
-        'USER': 'band_calendar_app',
-        'PASSWORD': 'band_calendar_app',
+        'NAME': 'performer_calendar_app',
+        'USER': 'performer_calendar_app',
+        'PASSWORD': 'performer_calendar_app',
         'HOST': 'localhost',
         'PORT': 5432,
     }
