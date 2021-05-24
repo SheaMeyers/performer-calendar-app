@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import axios from "axios";
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from "@material-ui/core/TextField";
+import { BACKEND_KEY, BACKEND_URL } from '../constants';
+import history from '../history';
 import '../css/UpdatePassword.css';
 
 
@@ -21,30 +24,35 @@ const UpdatePassword = () => {
 
                             // @ts-ignore
                             const elements = event.target.elements;
-                            const email = elements.email.value;
                             const password = elements.password.value;
                             const secondPassword = elements.secondPassword.value;
-                            const isSupervisor = elements.checkbox.checked;
 
                             const passwordsMatch = password === secondPassword;
                             const isStrongPassword = password.length > 8 && /\d/.test(password);
 
-                            // if (passwordsMatch && isStrongPassword) {
-                            //     axios.post(`${domainUrl}/backend/sign-up`, 
-                        //     axios.post(`${domainUrl}/backend/sign-up`, 
-                            //     axios.post(`${domainUrl}/backend/sign-up`, 
-                            //         {
-                            //             email: email,
-                            //             password: password,
-                            //         })
-                            //         .then(_ => {setFeedbackMessage("Please check your email for further instructions")
-                            //         })
-                            //         .catch(_ => setFeedbackMessage("Unable to sign up.  Please try again later"));
-                            // } else if (!isStrongPassword) {
-                            //     setFeedbackMessage("Password must be at least 8 characters long with at least one number");
-                            // } else {
-                            //     setFeedbackMessage("Passwords do not match");
-                            // }
+                            if (passwordsMatch && isStrongPassword) {
+                                setFeedbackMessage("Changing password...");
+                                axios.post(`${BACKEND_URL}/backend/rest-auth/password/change/`, 
+                                    {
+                                        new_password1: password,
+                                        new_password2: secondPassword,
+                                    }, {
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
+                                        }
+                                    })
+                                    .then(_ => {
+                                        history.push('/');
+                                    })
+                                    .catch(_ => {
+                                        setFeedbackMessage("Unable to change password.  Please try a more secure password or try again later.")
+                                });
+                            } else if (!isStrongPassword) {
+                                setFeedbackMessage("Password must be at least 8 characters long with at least one number");
+                            } else {
+                                setFeedbackMessage("Passwords do not match");
+                            }
                     }}>
                         <h2>Enter new password</h2>
                         <TextField
@@ -67,7 +75,7 @@ const UpdatePassword = () => {
                         />
                         {feedbackMessage && <p>{feedbackMessage}</p>}
                         <Button variant="contained" type="submit" color="primary">
-                            Enter
+                            Change
                         </Button>
                     </form>
                 </CardContent>
