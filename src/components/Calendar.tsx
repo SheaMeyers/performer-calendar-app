@@ -15,7 +15,7 @@ interface Event {
     start: Date;
     end: Date;
     hexColor: string;
-    seatGeekUrl: string;
+    url: string;
     tooltip?: string; 
 }
 
@@ -54,7 +54,7 @@ const ReactBigCalendar = () => {
     }
 
     const handleOnSelectEvent = (event: Event, syntheticEvent: React.SyntheticEvent) => {
-        window.open(event.seatGeekUrl, "_blank");
+        window.open(event.url, "_blank");
     }
 
     const classes = useStyles();
