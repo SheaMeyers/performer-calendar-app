@@ -30,17 +30,21 @@ const SearchPerformers = () => {
   const [query, setQuery] = useState<string>('');
   const [shouldSearchdModalBeOpen, setShouldSearchdModalBeOpen] = useState<boolean>(false);
 
-  const closeSearchModal = () => setShouldSearchdModalBeOpen(false);
+  const closeSearchModal = () => {
+    setQuery('');
+    setShouldSearchdModalBeOpen(false);
+  };
 
   return (
     <Paper className={classes.root}>
       <InputBase
         onChange={event => setQuery(event.target.value)}
+        value={query}
         className={classes.input}
         placeholder="Add Performers"
         inputProps={{ 'aria-label': 'Add performers' }}
       />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={_ => setShouldSearchdModalBeOpen(true)}>
+      <IconButton type="submit" className={classes.iconButton} aria-label="search"  onClick={_ => setShouldSearchdModalBeOpen(true)}>
         <SearchIcon />
       </IconButton>
       <SearchPerformersResultsModal 

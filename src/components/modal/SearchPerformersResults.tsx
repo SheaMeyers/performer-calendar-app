@@ -1,9 +1,7 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import Button from '@material-ui/core/Button';
-import TextField from "@material-ui/core/TextField";
-import { BACKEND_URL } from '../../constants';
 import '../../css/Modal.css';
 
 
@@ -14,7 +12,7 @@ interface Props {
 }
 
 const SearchPerformersResultsModal = (props: Props) => {
-    const [results, setResults] = useState<string[]>([]);
+    const [results, setResults] = useState<string[] | null>(null);
 
     return (
         <Modal
@@ -24,8 +22,11 @@ const SearchPerformersResultsModal = (props: Props) => {
             className="modal"
         >
             <h2>Performers</h2>
-            <p>query {props.query}</p>
-            <p>Searching...</p>
+            {results === null && <p>Searching...</p>}
+            {results === [] && <p>No results found</p>}
+            {results && 
+                <p>loop through results here with map</p>
+            }
             <Button variant="contained" onClick={_ => props.handleModalClose()}>
                 Close
             </Button>
