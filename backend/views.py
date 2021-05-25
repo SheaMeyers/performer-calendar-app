@@ -15,7 +15,7 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 
 from .models import Performer
-from .serializers import SeatGeekPerformerSerializer
+from .serializers import SeatGeekPerformerSerializer, SeatGeekEventsSerializer
 
 UserModel = get_user_model()
 
@@ -89,15 +89,24 @@ class GetEvents(APIView):
         performers = request.user.performers.all()
         performers_data = SeatGeekPerformerSerializer(performers, many=True).data
 
-        # TODO Need to loop over this getting results
-        url = f"https://api.seatgeek.com/2/events?" \
-              f"performers.id={','.join([str(performer.id) for performer in performers])}&" \
-              f"client_id={settings.SEAT_GEEK_CLIENT_ID}"
-        # response = requests.get(url)
+        events_data = []
+        for performer in performers:
+            events = []
+            for i in range(1, 100):
+                url = f"https://api.seatgeek.com/2/events?" \
+                      f"performers.id={performer.id}&" \
+                      f"client_id={settings.SEAT_GEEK_CLIENT_ID}&page={i}"
+                response = requests.get(url)
+                response_data = response.json()
+                events += response_data['events']
+                if (response_data['meta']['page'] * response_data['meta']['per_page']) > response_data['meta']['total']:
+                    break
+
+            events_data += SeatGeekEventsSerializer(events, many=True, context={'performer': performer}).data
 
         data = {
             'performers': performers_data,
-            'events': []
+            'events': events_data
         }
 
         return Response(status=200, data=data)
