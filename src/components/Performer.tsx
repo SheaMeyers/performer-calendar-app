@@ -18,9 +18,9 @@ const Performer = (props: PerformerProps) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
         if (event.target.checked) {
-            dispatch({ type: "ADD_PERFORMER", payload: props });
+            dispatch({ type: "ADD_SELECTED_PERFORMER", payload: props });
         } else {
-            dispatch({ type: "REMOVE_PERFORMER", payload: props.name });
+            dispatch({ type: "REMOVE_SELECTED_PERFORMER", payload: props.name });
         }
     };
 

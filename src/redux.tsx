@@ -37,10 +37,10 @@ const initialState = {
 //   removing events for a single performer
 //   adding performer to all performers
 //   removing performer to all performers
-export type Action = { type: "ADD_PERFORMER"; payload: Performer } | 
+export type Action = { type: "ADD_SELECTED_PERFORMER"; payload: Performer } | 
                      { type: "ADD_PERFORMERS"; payload: Performer[] } | 
                      { type: "ADD_EVENTS"; payload: Event[] } | 
-                     { type: "REMOVE_PERFORMER"; payload: string } |
+                     { type: "REMOVE_SELECTED_PERFORMER"; payload: string } |
                      { type: "ADD_EMAIL"; payload: string } |
                      { type: "REMOVE_EMAIL" };
 
@@ -49,14 +49,18 @@ export const performerReducer = (
     action: Action
 ) => {
     switch (action.type) {
-        case "ADD_PERFORMER": {
+        case "ADD_SELECTED_PERFORMER": {
             return { ...state, selectedPerformers: [...state.selectedPerformers, action.payload] };
         }
-        case "REMOVE_PERFORMER": {
+        case "REMOVE_SELECTED_PERFORMER": {
             return { ...state, selectedPerformers: state.selectedPerformers.filter(performer => performer.name !== action.payload) };
         }
         case "ADD_PERFORMERS": {
-            return { ...state, selectedPerformers: [...state.selectedPerformers, ...action.payload] };
+            return { 
+                        ...state, 
+                        selectedPerformers: [...state.selectedPerformers, ...action.payload], 
+                        allPerformers: [...state.allPerformers, ...action.payload] 
+                    };
         }
         case "ADD_EVENTS": {
             return { ...state, events: [...state.events, ...action.payload] };
