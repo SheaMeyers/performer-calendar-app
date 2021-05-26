@@ -80,7 +80,7 @@ class RemovePerformer(APIView):
         return Response(status=200)
 
 
-class GetEvents(APIView):
+class GetInfo(APIView):
 
     permission_classes = [IsAuthenticated]
 
