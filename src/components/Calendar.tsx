@@ -4,9 +4,15 @@ import { useSelector } from "react-redux";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { PerformerState } from "../redux";
-import myEventsList from '../exampleEvents';
+import { ReduxState } from "../redux";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+
+interface Performer {
+    id: number
+    name: string
+    color: string
+}
 
 
 interface Event {
@@ -29,10 +35,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ReactBigCalendar = () => {
 
-    const performers = useSelector<PerformerState, PerformerState["performers"]>(
-        (state) => state.performers
+    const events = useSelector<ReduxState, ReduxState["events"]>(
+        (state) => state.events
       );
-    const performers_titles = performers.map(performer => performer.name)
+    const selectedPerformers = useSelector<ReduxState, ReduxState["selectedPerformers"]>(
+        (state) => state.selectedPerformers
+      );
+    const performers_titles = selectedPerformers.map((selectedPerformers: Performer) => selectedPerformers.name)
 
     const eventStyleGetter = (event: Event) => {
         var backgroundColor = '#' + event.hexColor;
@@ -65,7 +74,7 @@ const ReactBigCalendar = () => {
             <CardContent>
                 <Calendar
                     localizer={momentLocalizer(moment)}
-                    events={myEventsList.filter((event: Event) => performers_titles.includes(event.title))}
+                    events={events.filter((event: Event) => performers_titles.includes(event.title))}
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: 500, width: 700 }}

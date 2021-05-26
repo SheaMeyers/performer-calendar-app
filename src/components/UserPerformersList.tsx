@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
+import { useSelector } from "react-redux";
 import UserPerformer from './UserPerformer';
-import myPerformersList from '../examplePerformers';
+import { ReduxState } from "../redux";
 
 interface PerformerType {
+    id: number;
     name: string;
     color: string;
 }
@@ -10,9 +12,13 @@ interface PerformerType {
 
 const UserPerformersList = () => {
 
+    const allPerformers = useSelector<ReduxState, ReduxState["allPerformers"]>(
+        (state) => state.allPerformers
+      );
+
     return (
         <Fragment>
-            {myPerformersList.map((performer: PerformerType) => {
+            {allPerformers.map((performer: PerformerType) => {
                 return (
                     <UserPerformer key={performer.name} name={performer.name}/>
                 )

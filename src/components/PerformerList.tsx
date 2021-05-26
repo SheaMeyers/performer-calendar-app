@@ -1,9 +1,10 @@
 import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { useSelector } from "react-redux";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import { ReduxState } from "../redux";
 import Performer from './Performer';
-import myPerformersList from '../examplePerformers';
 
 
 interface PerformerType {
@@ -23,12 +24,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const PerformersList = () => {
 
     const classes = useStyles();
+    const allPerformers = useSelector<ReduxState, ReduxState["allPerformers"]>(
+        (state) => state.allPerformers
+      );
 
     return (
         <Card className={classes.card}>
             <CardContent>
                 <h2>Performers</h2>
-                {myPerformersList.map((performer: PerformerType) => {
+                {allPerformers.map((performer: PerformerType) => {
                     return (
                         <Performer key={performer.name} id={performer.id} name={performer.name} color={performer.color}/>
                     )

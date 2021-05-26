@@ -1,5 +1,4 @@
 import { createStore } from "redux";
-import performerList from './examplePerformers';
 import { EMAIL_KEY, PERFORMERS_KEY, EVENTS_KEY } from './constants';
 
 interface Performer {
@@ -18,14 +17,16 @@ interface Event {
     tooltip?: string; 
 }
 
-export interface PerformerState {
-    performers: Performer[];
+export interface ReduxState {
+    allPerformers: Performer[];
+    selectedPerformers: Performer[];
     events: Event[];
     email?: string;
 }
 
 const initialState = {
-    performers: JSON.parse(localStorage.getItem(PERFORMERS_KEY) || "[]"),
+    allPerformers: JSON.parse(localStorage.getItem(PERFORMERS_KEY) || "[]"),
+    selectedPerformers: JSON.parse(localStorage.getItem(PERFORMERS_KEY) || "[]"),
     events: JSON.parse(localStorage.getItem(EVENTS_KEY) || "[]"),
     email: localStorage.getItem(EMAIL_KEY) || undefined,
 };
@@ -34,6 +35,8 @@ const initialState = {
 // TODO Need to add actions for:
 //   adding events for a single performer
 //   removing events for a single performer
+//   adding performer to all performers
+//   removing performer to all performers
 export type Action = { type: "ADD_PERFORMER"; payload: Performer } | 
                      { type: "ADD_PERFORMERS"; payload: Performer[] } | 
                      { type: "ADD_EVENTS"; payload: Event[] } | 
@@ -42,18 +45,18 @@ export type Action = { type: "ADD_PERFORMER"; payload: Performer } |
                      { type: "REMOVE_EMAIL" };
 
 export const performerReducer = (
-    state: PerformerState = initialState,
+    state: ReduxState = initialState,
     action: Action
 ) => {
     switch (action.type) {
         case "ADD_PERFORMER": {
-            return { ...state, performers: [...state.performers, action.payload] };
+            return { ...state, selectedPerformers: [...state.selectedPerformers, action.payload] };
         }
         case "REMOVE_PERFORMER": {
-            return { ...state, performers: state.performers.filter(performer => performer.name !== action.payload) };
+            return { ...state, selectedPerformers: state.selectedPerformers.filter(performer => performer.name !== action.payload) };
         }
         case "ADD_PERFORMERS": {
-            return { ...state, performers: [...state.performers, ...action.payload] };
+            return { ...state, selectedPerformers: [...state.selectedPerformers, ...action.payload] };
         }
         case "ADD_EVENTS": {
             return { ...state, events: [...state.events, ...action.payload] };

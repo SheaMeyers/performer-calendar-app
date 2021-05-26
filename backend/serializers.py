@@ -19,6 +19,7 @@ class SeatGeekEventsSerializer(serializers.Serializer):
         data = super().to_representation(instance)
 
         data['start'] = instance['datetime_utc']
+        # TODO Make this be just before midnight to prevent day overlaps
         end_date = datetime.strptime(instance['datetime_utc'], self.date_format) + timedelta(hours=3)
         data['end'] = datetime.strftime(end_date, self.date_format)
 
