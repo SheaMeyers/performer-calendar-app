@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
-import { BACKEND_URL, BACKEND_KEY, EMAIL_KEY } from '../../constants';
+import { BACKEND_URL, BACKEND_KEY, EMAIL_KEY, getInfo } from '../../constants';
 import '../../css/Modal.css';
 
 
@@ -44,6 +44,7 @@ const SignInModal = (props: Props) => {
                         localStorage.setItem(BACKEND_KEY, response.data.key);
                         localStorage.setItem(EMAIL_KEY, email);
                         dispatch({ type: "ADD_EMAIL", payload: email });
+                        getInfo();
                         props.handleModalClose();
                     })
                     .catch(_ => setFeedbackMessage("Unable to sign in.  Please try again"));

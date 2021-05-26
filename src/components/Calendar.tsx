@@ -32,6 +32,7 @@ const ReactBigCalendar = () => {
     const performers = useSelector<PerformerState, PerformerState["performers"]>(
         (state) => state.performers
       );
+    const performers_titles = performers.map(performer => performer.name)
 
     const eventStyleGetter = (event: Event) => {
         var backgroundColor = '#' + event.hexColor;
@@ -64,7 +65,7 @@ const ReactBigCalendar = () => {
             <CardContent>
                 <Calendar
                     localizer={momentLocalizer(moment)}
-                    events={myEventsList.filter((event: Event) => performers.includes(event.title))}
+                    events={myEventsList.filter((event: Event) => performers_titles.includes(event.title))}
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: 500, width: 700 }}

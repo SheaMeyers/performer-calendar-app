@@ -7,6 +7,7 @@ import myPerformersList from '../examplePerformers';
 
 
 interface PerformerType {
+    id: number;
     name: string;
     color: string;
 }
@@ -29,7 +30,7 @@ const PerformersList = () => {
                 <h2>Performers</h2>
                 {myPerformersList.map((performer: PerformerType) => {
                     return (
-                        <Performer key={performer.name} name={performer.name} color={performer.color}/>
+                        <Performer key={performer.name} id={performer.id} name={performer.name} color={performer.color}/>
                     )
                 })}
             </CardContent>
