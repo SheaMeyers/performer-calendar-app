@@ -1,0 +1,4 @@
+.search-performers-results-modal {
+    max-height: 70vh;
+    overflow-y: scroll;
+}

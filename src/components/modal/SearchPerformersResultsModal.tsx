@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import { BACKEND_KEY, BACKEND_URL } from '../../constants';
 import '../../css/Modal.css';
+import '../../css/SearchPerformersResultsModal.css';
+
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      display: 'flex',
+      alignItems: 'center',
+      margin: '1rem 0',
+      padding: '0 1rem',
+      cursor: 'pointer'
+    }
+  }),
+);
 
 
 interface Props {
@@ -20,6 +36,8 @@ interface PerformerResult {
 const SearchPerformersResultsModal = (props: Props) => {
     const [results, setResults] = useState<PerformerResult[] | null>(null);
 
+    const classes = useStyles();
+
     useEffect(() => {
         if (props.query && props.isOpen) {
             axios.post(`${BACKEND_URL}/backend/search-performers/`, 
@@ -31,11 +49,7 @@ const SearchPerformersResultsModal = (props: Props) => {
                         'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
                     }
                 })
-                .then(response => {
-                    console.log('response.data');
-                    console.log(response.data);
-                    setResults(response.data);
-                })
+                .then(response => setResults(response.data))
                 .catch(_ => setResults([]))
         }
     }, [props.isOpen]);
@@ -45,7 +59,7 @@ const SearchPerformersResultsModal = (props: Props) => {
             isOpen={props.isOpen}
             contentLabel="Forgot Password Modal"
             closeTimeoutMS={200}
-            className="modal"
+            className="modal search-performers-results-modal"
         >
             <h2>Performers</h2>
             {results === null && <p>Searching...</p>}
@@ -53,9 +67,25 @@ const SearchPerformersResultsModal = (props: Props) => {
             {results && 
                 results.map(result => {
                     return (
-                        <div>
+                        <Paper 
+                            className={classes.paper}
+                            onClick={_ => {
+                                axios.post(`${BACKEND_URL}/backend/add-performer/`, 
+                                {
+                                    id: result.id,
+                                    name: result.name
+                                }, {
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
+                                    }
+                                })
+                                .then(_ => props.handleModalClose())
+                                .catch(_ => props.handleModalClose())
+                            }}
+                        >
                             <p>{result.name}</p>
-                        </div>
+                        </Paper>
                     )
                 })
             }
