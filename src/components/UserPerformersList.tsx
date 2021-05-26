@@ -6,7 +6,7 @@ import { ReduxState } from "../redux";
 interface PerformerType {
     id: number;
     name: string;
-    color: string;
+    hex_color: string;
 }
 
 

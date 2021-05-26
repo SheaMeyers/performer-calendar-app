@@ -4,8 +4,9 @@ from rest_framework import serializers
 
 
 class SeatGeekPerformerSerializer(serializers.Serializer):
-    name = serializers.CharField()
     id = serializers.IntegerField()
+    name = serializers.CharField()
+    hex_color = serializers.CharField(required=False)
 
 
 class SeatGeekEventsSerializer(serializers.Serializer):
@@ -19,8 +20,7 @@ class SeatGeekEventsSerializer(serializers.Serializer):
         data = super().to_representation(instance)
 
         data['start'] = instance['datetime_utc']
-        # TODO Make this be just before midnight to prevent day overlaps
-        end_date = datetime.strptime(instance['datetime_utc'], self.date_format) + timedelta(hours=3)
+        end_date = datetime.strptime(instance['datetime_utc'], self.date_format).replace(hour=23, minute=59, second=59)
         data['end'] = datetime.strftime(end_date, self.date_format)
 
         data['tooltip'] = instance['venue']['name'] + ', ' + \
@@ -31,6 +31,6 @@ class SeatGeekEventsSerializer(serializers.Serializer):
 
         performer = self.context['performer']
         data['title'] = performer.name
-        data['hexColor'] = performer.hex_color
+        data['hex_color'] = performer.hex_color
 
         return data

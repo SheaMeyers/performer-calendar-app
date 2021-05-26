@@ -157,7 +157,7 @@ class RemovePerformerTests(TestCase):
         self.other_user.performers.add(self.performer)
         self.token = Token.objects.create(user=self.user)
 
-    def test_add_performer_adds_performer(self):
+    def test_remove_performer_removes_performer(self):
         remove_performer_url = reverse('remove_performer')
         data = {
             'name': 'Korn'
@@ -169,7 +169,7 @@ class RemovePerformerTests(TestCase):
         self.assertEqual(self.other_user.performers.count(), 1)
 
 
-class GetEventsTests(TestCase):
+class GetInfoTests(TestCase):
 
     class MockedResponse:
         def json(self):
@@ -585,22 +585,22 @@ class GetEventsTests(TestCase):
     def setUp(self) -> None:
         self.user = User.objects.create(email='email@email.com')
         self.performer = Performer.objects.create(id=1069, name='Korn', hex_color='#B98702')
-        self.performer_2 = Performer.objects.create(id=1070, name='Slipknot')
+        self.performer_2 = Performer.objects.create(id=1070, name='Slipknot', hex_color='#B98703')
         self.user.performers.add(self.performer)
         self.user.performers.add(self.performer_2)
         self.token = Token.objects.create(user=self.user)
 
     @patch('requests.get', return_value=MockedResponse())
-    def test_add_performer_adds_performer(self, _mock):
-        get_events_url = reverse('get_events')
+    def test_get_info_returns_correct_performers_and_events(self, _mock):
+        get_events_url = reverse('get_info')
         response = self.client.get(get_events_url, HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['performers'], [{'id': 1069, 'name': 'Korn'},
-                                                         {'id': 1070, 'name': 'Slipknot'}])
-        self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-15T01:30:00',
+        self.assertEqual(response.json()['performers'], [{'id': 1069, 'name': 'Korn', 'hex_color': '#B98702'},
+                                                         {'id': 1070, 'name': 'Slipknot', 'hex_color': '#B98703'}])
+        self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-14T23:59:59',
                                                             'geo_location': {'lat': 41.3506, 'lon': -75.6622},
-                                                            'hexColor': '#B98702',
+                                                            'hex_color': '#B98702',
                                                             'id': 5405028,
                                                             'start': '2021-08-14T22:30:00',
                                                             'title': 'Korn',

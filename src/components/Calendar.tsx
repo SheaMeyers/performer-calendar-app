@@ -11,7 +11,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 interface Performer {
     id: number
     name: string
-    color: string
+    hex_color: string
 }
 
 
@@ -20,7 +20,7 @@ interface Event {
     title: string;
     start: Date;
     end: Date;
-    hexColor: string;
+    hex_color: string;
     url: string;
     tooltip?: string; 
 }
@@ -44,19 +44,17 @@ const ReactBigCalendar = () => {
     const performers_titles = selectedPerformers.map((selectedPerformers: Performer) => selectedPerformers.name)
 
     const eventStyleGetter = (event: Event) => {
-        var backgroundColor = '#' + event.hexColor;
-        var style = {
-            backgroundColor: backgroundColor,
+        const style = {
+            backgroundColor: event.hex_color.toLocaleLowerCase(),
             borderRadius: '0px',
             opacity: 0.8,
             color: 'black',
             border: '0px',
             display: 'block'
-        };
+        }
         return {
             style: style
-        };
-
+        }
     }
 
     const eventTooltipGetter = (event: Event) => {

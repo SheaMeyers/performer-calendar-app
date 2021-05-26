@@ -10,7 +10,7 @@ import Performer from './Performer';
 interface PerformerType {
     id: number;
     name: string;
-    color: string;
+    hex_color: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +34,7 @@ const PerformersList = () => {
                 <h2>Performers</h2>
                 {allPerformers.map((performer: PerformerType) => {
                     return (
-                        <Performer key={performer.name} id={performer.id} name={performer.name} color={performer.color}/>
+                        <Performer key={performer.name} id={performer.id} name={performer.name} hex_color={performer.hex_color}/>
                     )
                 })}
             </CardContent>

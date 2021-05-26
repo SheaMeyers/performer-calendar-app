@@ -7,7 +7,7 @@ import '../css/Performer.css';
 interface PerformerProps {
     id: number;
     name: string;
-    color: string;
+    hex_color: string;
 }
 
 const Performer = (props: PerformerProps) => {
@@ -29,7 +29,7 @@ const Performer = (props: PerformerProps) => {
             <Checkbox
                 checked={checked}
                 onChange={handleChange}
-                style={{color: `#${props.color}`}}
+                style={{color: `${props.hex_color.toLocaleLowerCase()}`}}
             />
             <p>{props.name}</p>
         </div>

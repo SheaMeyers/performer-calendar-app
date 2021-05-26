@@ -4,7 +4,7 @@ import { EMAIL_KEY, PERFORMERS_KEY, EVENTS_KEY } from './constants';
 interface Performer {
     id: number
     name: string
-    color: string
+    hex_color: string
 }
 
 interface Event {
@@ -12,7 +12,7 @@ interface Event {
     title: string;
     start: Date;
     end: Date;
-    hexColor: string;
+    hex_color: string;
     url: string;
     tooltip?: string; 
 }
