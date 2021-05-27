@@ -5,6 +5,7 @@ import { store } from '../redux';
 import history from "../history";
 import AccountSettings from './AccountSettings';
 import HeaderBar from './HeaderBar';
+import FooterBar from './FooterBar';
 import Home from './Home';
 import UpdatePassword from './UpdatePassword';
 
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/account-settings" exact component={AccountSettings} />
             <Route path="/update-password" exact component={UpdatePassword} />
           </Switch>
+          <FooterBar />
       </Router>
     </Provider>
   );
