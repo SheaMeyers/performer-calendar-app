@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { ReduxState } from "../redux";
 import Performer from './Performer';
+import { EMAIL_KEY } from '../constants';
 
 
 interface PerformerType {
@@ -32,6 +33,15 @@ const PerformersList = () => {
         <Card className={classes.card}>
             <CardContent>
                 <h2>Performers</h2>
+                { localStorage.getItem(EMAIL_KEY) === null &&
+                    <p>Sign in or sign up to add performers</p>
+                }
+                { allPerformers.length === 0 && localStorage.getItem(EMAIL_KEY) &&
+                    <span>
+                        <p>Add performers in your Account Settings</p>
+                        <p>(Dropdown on the top right)</p>
+                    </span>
+                }
                 {allPerformers.map((performer: PerformerType) => {
                     return (
                         <Performer key={performer.name} id={performer.id} name={performer.name} hex_color={performer.hex_color}/>
