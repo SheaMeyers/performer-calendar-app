@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     headerBarTextDiv: {
         flexGrow: 1,
+        display: 'flex'
+    },
+    seatGeekImage: {
+      height: '45px',
+      marginLeft: '5px'
     }
   }),
 );
@@ -42,10 +47,15 @@ const HeaderBar = () => {
         <AppBar position="static" className={classes.headerBar}>
             <Toolbar>
                 <div className={classes.headerBarTextDiv}>
-                    <Typography className={classes.headerBarTitle} variant="h1">Seat Geek Calendar</Typography>
-                    <Typography className={classes.headerBarSubTitle} variant="h2">
-                        Indepently operated. Powered by SeatGeek API (Thanks SeatGeek!).
-                    </Typography>
+                  <div>
+                      <Typography className={classes.headerBarTitle} variant="h1">Seat Geek Calendar</Typography>
+                      <Typography className={classes.headerBarSubTitle} variant="h2">
+                          Indepently operated.  Powered by
+                      </Typography>
+                  </div>
+                  <a href="https://seatgeek.com" target="_blank" rel="noopener">
+                    <img src="/static/SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Image" />
+                  </a>
                 </div>
                 {
                   email
