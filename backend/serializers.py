@@ -33,4 +33,7 @@ class SeatGeekEventsSerializer(serializers.Serializer):
         data['title'] = performer.name
         data['hex_color'] = performer.hex_color
 
+        query_param_symbol = '&' if '?' in data['url'] else '?'
+        data['url'] += f"{query_param_symbol}seatgeekcalendardotcom=true"
+
         return data

@@ -62,7 +62,7 @@ const ReactBigCalendar = () => {
     }
 
     const handleOnSelectEvent = (event: Event, syntheticEvent: React.SyntheticEvent) => {
-        window.open(event.url, "_blank");
+        window.open(event.url, "_blank", "noopener");
     }
 
     const classes = useStyles();

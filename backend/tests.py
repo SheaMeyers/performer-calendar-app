@@ -570,7 +570,7 @@ class AddPerformerTests(TestCase):
                                                             'start': '2021-08-14T22:30:00',
                                                             'title': 'Korn',
                                                             'tooltip': 'The Pavilion at Montage Mountain, Scranton, US',
-                                                            'url': 'https://seatgeek.com/korn-with-staind-tickets/scranton-pennsylvania-the-pavilion-at-montage-mountain-2021-08-14-6-30-pm/concert/5405028'})
+                                                            'url': 'https://seatgeek.com/korn-with-staind-tickets/scranton-pennsylvania-the-pavilion-at-montage-mountain-2021-08-14-6-30-pm/concert/5405028?seatgeekcalendardotcom=true'})
 
 
 class RemovePerformerTests(TestCase):
@@ -619,4 +619,4 @@ class GetInfoTests(TestCase):
                                                             'start': '2021-08-14T22:30:00',
                                                             'title': 'Korn',
                                                             'tooltip': 'The Pavilion at Montage Mountain, Scranton, US',
-                                                            'url': 'https://seatgeek.com/korn-with-staind-tickets/scranton-pennsylvania-the-pavilion-at-montage-mountain-2021-08-14-6-30-pm/concert/5405028'})
+                                                            'url': 'https://seatgeek.com/korn-with-staind-tickets/scranton-pennsylvania-the-pavilion-at-montage-mountain-2021-08-14-6-30-pm/concert/5405028?seatgeekcalendardotcom=true'})

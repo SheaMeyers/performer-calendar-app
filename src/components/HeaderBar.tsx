@@ -53,7 +53,7 @@ const HeaderBar = () => {
                           Indepently operated.  Powered by
                       </Typography>
                   </div>
-                  <a href="https://seatgeek.com" target="_blank" rel="noopener">
+                  <a href="https://seatgeek.com/?seatgeekcalendardotcom=true" target="_blank" rel="noopener">
                     <img src="/static/SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Image" />
                   </a>
                 </div>
