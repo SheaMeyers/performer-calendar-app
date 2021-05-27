@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -35,7 +36,7 @@ interface PerformerResult {
 
 const SearchPerformersResultsModal = (props: Props) => {
     const [results, setResults] = useState<PerformerResult[] | null>(null);
-
+    const dispatch = useDispatch();
     const classes = useStyles();
 
     useEffect(() => {
@@ -62,7 +63,8 @@ const SearchPerformersResultsModal = (props: Props) => {
             className="modal search-performers-results-modal"
         >
             <h2>Performers</h2>
-            {results === null && <p>Searching...</p>}
+            {props.query === "" && <p>No value entered</p>}
+            {results === null && props.query !== '' && <p>Searching...</p>}
             {results === [] && <p>No results found</p>}
             {results && 
                 results.map(result => {
@@ -80,7 +82,11 @@ const SearchPerformersResultsModal = (props: Props) => {
                                         'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
                                     }
                                 })
-                                .then(_ => props.handleModalClose())
+                                .then(response => {
+                                    dispatch({ type: "ADD_PERFORMERS", payload: [response.data.performer] });
+                                    dispatch({ type: "ADD_EVENTS", payload: response.data.events });
+                                    props.handleModalClose()
+                                })
                                 .catch(_ => props.handleModalClose())
                             }}
                         >
