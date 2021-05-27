@@ -91,9 +91,9 @@ class RemovePerformer(APIView):
     def post(self, request: Request) -> Response:
         name = request.data.get('name')
 
-        perfomer = Performer.objects.get(name=name)
+        performer = Performer.objects.get(name=name)
 
-        request.user.performers.remove(perfomer)
+        request.user.performers.remove(performer)
 
         return Response(status=200)
 

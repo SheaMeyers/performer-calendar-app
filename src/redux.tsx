@@ -32,11 +32,6 @@ const initialState = {
 };
 
 
-// TODO Need to add actions for:
-//   adding events for a single performer
-//   removing events for a single performer
-//   adding performer to all performers
-//   removing performer to all performers
 export type Action = { type: "ADD_SELECTED_PERFORMER"; payload: Performer } | 
                      { type: "ADD_PERFORMERS"; payload: Performer[] } | 
                      { type: "REMOVE_SELECTED_PERFORMER"; payload: string } |
@@ -45,6 +40,7 @@ export type Action = { type: "ADD_SELECTED_PERFORMER"; payload: Performer } |
                      { type: "REMOVE_EVENTS"; payload: string } | 
                      { type: "ADD_EMAIL"; payload: string } |
                      { type: "REMOVE_EMAIL" };
+
 
 export const performerReducer = (
     state: ReduxState = initialState,

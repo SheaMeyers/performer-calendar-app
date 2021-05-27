@@ -20,7 +20,7 @@ const UserPerformersList = () => {
         <Fragment>
             {allPerformers.map((performer: PerformerType) => {
                 return (
-                    <UserPerformer key={performer.name} name={performer.name}/>
+                    <UserPerformer key={performer.name} id={performer.id} name={performer.name} hex_color={performer.hex_color} />
                 )
             })}
         </Fragment>

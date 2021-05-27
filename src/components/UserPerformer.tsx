@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from "react-redux";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Paper from '@material-ui/core/Paper';
+import { BACKEND_KEY, BACKEND_URL } from '../constants';
 
 
 interface UserPerformerProps {
+    id: number;
     name: string;
+    hex_color: string;
 }
 
 
@@ -21,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
         flexGrow: 1
     },
     icon: {
-        color: 'red'
+        color: 'red',
+        cursor: 'pointer'
     }
   }),
 );
@@ -29,11 +35,27 @@ const useStyles = makeStyles((theme: Theme) =>
 const UserPerformer = (props: UserPerformerProps) => {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     return (
         <Paper className={classes.paper}>
             <p className={classes.name}>{props.name}</p>
-            <HighlightOffIcon className={classes.icon}/>
+            <HighlightOffIcon 
+              className={classes.icon}
+              onClick={_ => {
+                axios.post(`${BACKEND_URL}/backend/remove-performer/`, {
+                  name: props.name
+                }, {
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
+                  }
+              }).then(_ => {
+                  dispatch({ type: "REMOVE_PERFORMER", payload: props.name });
+                  dispatch({ type: "REMOVE_EVENTS", payload: props.name });
+              }).catch(_ => {/* Do nothing.  User will have to try again later */})
+              }}
+            />
         </Paper>
     )
 
