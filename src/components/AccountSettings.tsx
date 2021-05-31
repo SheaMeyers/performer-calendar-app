@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import SearchPerformers from './SearchPerformers';
 import UserPerformersList from './UserPerformersList';
 import history from '../history';
-import { handleLogout } from '../constants';
+import { EMAIL_KEY, handleLogout } from '../constants';
 import '../css/AccountSettings.css';
 
 
@@ -36,6 +36,7 @@ const AccountSettings = () => {
             <Card>
                 <CardContent className={classes.cardContent}>
                     <h2>Account Settings</h2>
+                    <p>Logged in as <b>{localStorage.getItem(EMAIL_KEY)}</b></p>
                     <Paper className={classes.paper}>
                         <SearchPerformers />
                         <UserPerformersList />
