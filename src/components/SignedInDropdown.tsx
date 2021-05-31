@@ -30,7 +30,7 @@ const SignedInDropdown = () => {
         } else if (event.target.value === 'accountSettings') {
           history.push('/account-settings');
         } else if (event.target.value === 'logout') {
-          handleLogout()
+          handleLogout();
         }
     };
 

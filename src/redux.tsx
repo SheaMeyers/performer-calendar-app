@@ -1,5 +1,14 @@
 import { createStore } from "redux";
-import { EMAIL_KEY, PERFORMERS_KEY, EVENTS_KEY } from './constants';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { EMAIL_KEY } from './constants';
+
+
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
 
 interface Performer {
     id: number
@@ -14,7 +23,7 @@ interface Event {
     end: Date;
     hex_color: string;
     url: string;
-    tooltip?: string; 
+    tooltip?: string;
 }
 
 export interface ReduxState {
@@ -25,21 +34,21 @@ export interface ReduxState {
 }
 
 const initialState = {
-    allPerformers: JSON.parse(localStorage.getItem(PERFORMERS_KEY) || "[]"),
-    selectedPerformers: JSON.parse(localStorage.getItem(PERFORMERS_KEY) || "[]"),
-    events: JSON.parse(localStorage.getItem(EVENTS_KEY) || "[]"),
+    allPerformers: [],
+    selectedPerformers: [],
+    events: [],
     email: localStorage.getItem(EMAIL_KEY) || undefined,
 };
 
 
-export type Action = { type: "ADD_SELECTED_PERFORMER"; payload: Performer } | 
-                     { type: "ADD_PERFORMERS"; payload: Performer[] } | 
-                     { type: "REMOVE_SELECTED_PERFORMER"; payload: string } |
-                     { type: "REMOVE_PERFORMER"; payload: string } |
-                     { type: "ADD_EVENTS"; payload: Event[] } | 
-                     { type: "REMOVE_EVENTS"; payload: string } | 
-                     { type: "ADD_EMAIL"; payload: string } |
-                     { type: "REMOVE_EMAIL" };
+export type Action = { type: "ADD_SELECTED_PERFORMER"; payload: Performer } |
+{ type: "ADD_PERFORMERS"; payload: Performer[] } |
+{ type: "REMOVE_SELECTED_PERFORMER"; payload: string } |
+{ type: "REMOVE_PERFORMER"; payload: string } |
+{ type: "ADD_EVENTS"; payload: Event[] } |
+{ type: "REMOVE_EVENTS"; payload: string } |
+{ type: "ADD_EMAIL"; payload: string } |
+{ type: "REMOVE_EMAIL" };
 
 
 export const performerReducer = (
@@ -51,24 +60,24 @@ export const performerReducer = (
             return { ...state, selectedPerformers: [...state.selectedPerformers, action.payload] };
         }
         case "REMOVE_SELECTED_PERFORMER": {
-            return { 
-                        ...state, 
-                        selectedPerformers: state.selectedPerformers.filter(performer => performer.name !== action.payload) 
-                    };
+            return {
+                ...state,
+                selectedPerformers: state.selectedPerformers.filter(performer => performer.name !== action.payload)
+            };
         }
         case "ADD_PERFORMERS": {
-            return { 
-                        ...state, 
-                        selectedPerformers: [...state.selectedPerformers, ...action.payload], 
-                        allPerformers: [...state.allPerformers, ...action.payload] 
-                    };
+            return {
+                ...state,
+                selectedPerformers: [...state.selectedPerformers, ...action.payload],
+                allPerformers: [...state.allPerformers, ...action.payload]
+            };
         }
         case "REMOVE_PERFORMER": {
-            return { 
-                        ...state, 
-                        selectedPerformers: state.selectedPerformers.filter(performer => performer.name !== action.payload), 
-                        allPerformers: state.allPerformers.filter(performer => performer.name !== action.payload) 
-                    };
+            return {
+                ...state,
+                selectedPerformers: state.selectedPerformers.filter(performer => performer.name !== action.payload),
+                allPerformers: state.allPerformers.filter(performer => performer.name !== action.payload)
+            };
         }
         case "ADD_EVENTS": {
             return { ...state, events: [...state.events, ...action.payload] };
@@ -87,4 +96,7 @@ export const performerReducer = (
     }
 };
 
-export const store = createStore(performerReducer);
+const persistedReducer = persistReducer(persistConfig, performerReducer);
+
+export const store = createStore(persistedReducer);
+export const persistor = persistStore(store);

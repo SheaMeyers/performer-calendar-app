@@ -6,8 +6,6 @@ const BACKEND_URL = 'http://localhost:8000';
 
 const BACKEND_KEY = 'backendApiKey';
 const EMAIL_KEY = 'userEmail';
-const PERFORMERS_KEY = 'performers';
-const EVENTS_KEY = 'events';
 
 const handleLogout = () => {
     axios.post(`${BACKEND_URL}/backend/rest-auth/logout/`, {}, {
@@ -18,15 +16,11 @@ const handleLogout = () => {
     }).then(_ => {
         localStorage.removeItem(BACKEND_KEY);
         localStorage.removeItem(EMAIL_KEY);
-        localStorage.removeItem(PERFORMERS_KEY);
-        localStorage.removeItem(EVENTS_KEY);
         store.dispatch({ type: "REMOVE_EMAIL" });
         history.replace('/');
     }).catch(_ => {
         localStorage.removeItem(BACKEND_KEY);
         localStorage.removeItem(EMAIL_KEY);
-        localStorage.removeItem(PERFORMERS_KEY);
-        localStorage.removeItem(EVENTS_KEY);
         store.dispatch({ type: "REMOVE_EMAIL" });
         history.replace('/');
     })
@@ -41,16 +35,12 @@ const getInfo = async () => {
             }
         })
 
-        localStorage.setItem(PERFORMERS_KEY, JSON.stringify(response.data.performers || []));
-        localStorage.setItem(EVENTS_KEY, JSON.stringify(response.data.events || []));
-
         store.dispatch({ type: "ADD_PERFORMERS", payload: response.data.performers });
         store.dispatch({ type: "ADD_EVENTS", payload: response.data.events });
-
     } catch (err) {
         // Do nothing
     }
 };
 
 
-export { BACKEND_URL, BACKEND_KEY, EMAIL_KEY, PERFORMERS_KEY, EVENTS_KEY, handleLogout, getInfo };
+export { BACKEND_URL, BACKEND_KEY, EMAIL_KEY, handleLogout, getInfo };
