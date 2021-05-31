@@ -48,7 +48,7 @@ export type Action = { type: "ADD_SELECTED_PERFORMER"; payload: Performer } |
 { type: "ADD_EVENTS"; payload: Event[] } |
 { type: "REMOVE_EVENTS"; payload: string } |
 { type: "ADD_EMAIL"; payload: string } |
-{ type: "REMOVE_EMAIL" };
+{ type: "LOGOUT" };
 
 
 export const performerReducer = (
@@ -88,8 +88,8 @@ export const performerReducer = (
         case "ADD_EMAIL": {
             return { ...state, email: action.payload };
         }
-        case "REMOVE_EMAIL": {
-            return { ...state, email: undefined };
+        case "LOGOUT": {
+            return { ...state, email: undefined, events: [], selectedPerformers: [], allPerformers: [] };
         }
         default:
             return state;

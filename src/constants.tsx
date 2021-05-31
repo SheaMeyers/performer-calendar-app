@@ -16,12 +16,12 @@ const handleLogout = () => {
     }).then(_ => {
         localStorage.removeItem(BACKEND_KEY);
         localStorage.removeItem(EMAIL_KEY);
-        store.dispatch({ type: "REMOVE_EMAIL" });
+        store.dispatch({ type: "LOGOUT" });
         history.replace('/');
     }).catch(_ => {
         localStorage.removeItem(BACKEND_KEY);
         localStorage.removeItem(EMAIL_KEY);
-        store.dispatch({ type: "REMOVE_EMAIL" });
+        store.dispatch({ type: "LOGOUT" });
         history.replace('/');
     })
 }
