@@ -15,15 +15,17 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Router history={history}>
-            <HeaderBar />
+        <HeaderBar />
+        <div style={{flexGrow: 1}}>
+          <Router history={history}>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/account-settings" exact component={AccountSettings} />
               <Route path="/update-password" exact component={UpdatePassword} />
             </Switch>
-            <FooterBar />
-        </Router>
+          </Router>
+        </div>
+        <FooterBar />
       </PersistGate>
     </Provider>
   );
