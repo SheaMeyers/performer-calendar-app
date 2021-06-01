@@ -41,8 +41,8 @@ const SearchPerformers = () => {
         onChange={event => setQuery(event.target.value)}
         value={query}
         className={classes.input}
-        placeholder="Add Performers"
-        inputProps={{ 'aria-label': 'Add performers' }}
+        placeholder="Search Performers"
+        inputProps={{ 'aria-label': 'Search performers' }}
       />
       <IconButton type="submit" className={classes.iconButton} aria-label="search"  onClick={_ => setShouldSearchdModalBeOpen(true)}>
         <SearchIcon />

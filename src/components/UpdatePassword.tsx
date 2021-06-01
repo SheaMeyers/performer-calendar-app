@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from "@material-ui/core/TextField";
-import { BACKEND_KEY, BACKEND_URL, EMAIL_KEY } from '../constants';
+import { BACKEND_KEY, BACKEND_URL, EMAIL_KEY, getInfo } from '../constants';
 import history from '../history';
 import '../css/UpdatePassword.css';
 
@@ -54,6 +54,7 @@ const UpdatePassword = () => {
                                         if (email) {
                                             localStorage.setItem(EMAIL_KEY, email);
                                             dispatch({ type: "ADD_EMAIL", payload: email });
+                                            getInfo();
                                         }
                                         history.replace('/');
                                     })

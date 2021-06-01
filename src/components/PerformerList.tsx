@@ -28,12 +28,15 @@ const PerformersList = () => {
     const allPerformers = useSelector<ReduxState, ReduxState["allPerformers"]>(
         (state) => state.allPerformers
       );
+    const email = useSelector<ReduxState, ReduxState["email"]>(
+        (state) => state.email
+      );
 
     return (
         <Card className={classes.card}>
             <CardContent>
                 <h2>Performers</h2>
-                { localStorage.getItem(EMAIL_KEY) === null &&
+                { !!!email &&
                     <p>Sign in or sign up to add performers</p>
                 }
                 { allPerformers.length === 0 && localStorage.getItem(EMAIL_KEY) &&

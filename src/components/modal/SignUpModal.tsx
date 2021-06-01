@@ -51,8 +51,8 @@ const SignUpModal = (props: Props) => {
                             dispatch({ type: "ADD_EMAIL", payload: email });
                             props.handleModalClose();
                         })
-                        .catch(error => {
-                            setFeedbackMessage("Unable to sign up.  Please try a more secure password or try again later.")
+                        .catch(_ => {
+                            setFeedbackMessage("Unable to sign up.  Please try a more secure password, different email, or try again later.")
                     });
                 } else if (!isStrongPassword) {
                     setFeedbackMessage("Password must be at least 8 characters long with at least one number");
