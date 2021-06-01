@@ -6,7 +6,7 @@ import '../css/Home.css';
 
 const Home = () => {
   return (
-      <div className="App">
+      <div className="Home">
         <PerformerList />
         <Calendar />
       </div>

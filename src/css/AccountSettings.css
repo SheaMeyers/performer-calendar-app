@@ -5,6 +5,12 @@
     margin: 1rem;
 }
 
+@media only screen and (max-width: 450px) {
+    .Account-Settings-Container {
+        align-items: inherit;
+    }
+  }
+
 .Account-Settings>button {
     margin-top: 1rem;
 }

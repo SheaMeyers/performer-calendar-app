@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "#ffffff",
       marginBottom: "1rem"
     },
+    headerBarToolbar: {
+      ['@media (max-width:450px)']: {  // eslint-disable-line no-useless-computed-key
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+      }
+    },
     headerBarTitle: {
         color: "#000000",
         fontSize: "1.5rem"
@@ -45,7 +51,7 @@ const HeaderBar = () => {
 
     return (
         <AppBar position="static" className={classes.headerBar}>
-            <Toolbar>
+            <Toolbar className={classes.headerBarToolbar}>
                 <div className={classes.headerBarTextDiv}>
                   <div>
                       <Typography className={classes.headerBarTitle} variant="h1">Seat Geek Calendar</Typography>
