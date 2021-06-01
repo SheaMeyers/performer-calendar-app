@@ -9,6 +9,10 @@
   .Home {
     flex-direction: column-reverse;
   }
+
+  .rbc-toolbar {  /* Modify react big calendar styling */
+    flex-direction: column;
+  }
 }
 
 header {
