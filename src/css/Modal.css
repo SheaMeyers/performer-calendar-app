@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     transition: opacity 200ms ease-in-out;
+    z-index: 1200;
 }
 
 .ReactModalPortal .ReactModal__Overlay--after-open {
