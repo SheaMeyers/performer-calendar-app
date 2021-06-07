@@ -42,5 +42,4 @@ const getInfo = async () => {
     }
 };
 
-
 export { BACKEND_URL, BACKEND_KEY, EMAIL_KEY, handleLogout, getInfo };
