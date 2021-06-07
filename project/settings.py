@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_(q-(lngp@d9o0x3i$7y1rzmyt!#4mq5_s6t@)#8o(^6pbh+*j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'performer-calendar-app.herokuapp.com', 'seatgeekcalendar.com']
 
