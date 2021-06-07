@@ -85,9 +85,13 @@ const SearchPerformersResultsModal = (props: Props) => {
                                 .then(response => {
                                     dispatch({ type: "ADD_PERFORMERS", payload: [response.data.performer] });
                                     dispatch({ type: "ADD_EVENTS", payload: response.data.events });
-                                    props.handleModalClose()
+                                    props.handleModalClose();
+                                    setResults(null);
                                 })
-                                .catch(_ => props.handleModalClose())
+                                .catch(_ => {
+                                    props.handleModalClose();
+                                    setResults(null);
+                                })
                             }}
                         >
                             <p>{result.name}</p>
@@ -95,7 +99,12 @@ const SearchPerformersResultsModal = (props: Props) => {
                     )
                 })
             }
-            <Button variant="contained" onClick={_ => props.handleModalClose()}>
+            <Button 
+                variant="contained" 
+                onClick={_ => {
+                    props.handleModalClose();
+                    setResults(null);
+            }}>
                 Close
             </Button>
         </Modal>
