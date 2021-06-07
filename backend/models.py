@@ -22,3 +22,6 @@ class Performer(models.Model):
     name = models.CharField(max_length=280)
     user = models.ManyToManyField(User, related_name='performers')
     hex_color = models.CharField(max_length=7, default=get_hex_color)
+
+    def __str__(self):
+        return f"{self.name} ({self.id})"
