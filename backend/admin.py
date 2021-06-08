@@ -12,6 +12,7 @@ class PerformerInline(admin.TabularInline):
 class UserAdmin(admin.ModelAdmin):
     list_display = ('email',)
     search_fields = ('email',)
+    readonly_fields = ('date_joined', 'last_login', )
     fields = ('email', 'date_joined', 'last_login', )
     inlines = [PerformerInline]
 
