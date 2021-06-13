@@ -65,14 +65,6 @@ const ReactBigCalendar = () => {
         window.open(event.url, "_blank", "noopener");
     }
 
-    const handleOnShowMore = (events: Event[], date: Date) => {
-        // Convert to date objects to prevent crash if user clicks to show more
-        events.map(event => {
-            event.start = new Date(event.start);
-            event.end = new Date(event.end);
-        });
-    }
-
     const classes = useStyles();
 
     return (
@@ -87,7 +79,6 @@ const ReactBigCalendar = () => {
                     tooltipAccessor={eventTooltipGetter}
                     eventPropGetter={eventStyleGetter}
                     onSelectEvent={handleOnSelectEvent}
-                    onShowMore={handleOnShowMore}
                 />
             </CardContent>
         </Card>

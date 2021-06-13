@@ -80,7 +80,13 @@ export const performerReducer = (
             };
         }
         case "ADD_EVENTS": {
-            return { ...state, events: [...state.events, ...action.payload] };
+            const events = action.payload;
+            // Convert to date objects
+            events.map(event => {
+                event.start = new Date(event.start);
+                event.end = new Date(event.end);
+            });
+            return { ...state, events: [...state.events, ...events] };
         }
         case "REMOVE_EVENTS": {
             return { ...state, events: state.events.filter(event => event.title !== action.payload) };
