@@ -42,6 +42,11 @@ const SearchPerformers = () => {
         className={classes.input}
         placeholder="Search Performers"
         inputProps={{ 'aria-label': 'Search performers' }}
+        onKeyDown={e => {
+          if (e.code === "Enter") {
+            setShouldSearchdModalBeOpen(true);
+          }
+        }}
       />
       <IconButton type="submit" className={classes.iconButton} aria-label="search"  onClick={_ => setShouldSearchdModalBeOpen(true)}>
         <SearchIcon />
