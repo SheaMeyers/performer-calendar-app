@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import { BACKEND_KEY, BACKEND_URL } from '../constants';
 
@@ -34,11 +35,27 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const UserPerformer = (props: UserPerformerProps) => {
 
+    const [checked, setChecked] = useState<boolean>(true);
+
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChecked(event.target.checked);
+        if (event.target.checked) {
+            dispatch({ type: "ADD_SELECTED_PERFORMER", payload: props });
+        } else {
+            dispatch({ type: "REMOVE_SELECTED_PERFORMER", payload: props.name });
+        }
+    };
+
     return (
         <Paper className={classes.paper}>
+            <Checkbox
+                checked={checked}
+                onChange={handleChange}
+                style={{color: `${props.hex_color.toLocaleLowerCase()}`}}
+            />
             <p className={classes.name}>{props.name}</p>
             <HighlightOffIcon 
               className={classes.icon}
