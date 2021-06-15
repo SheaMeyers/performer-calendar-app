@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import history from '../history';
 import { EMAIL_KEY, handleLogout } from '../constants';
-import NewPerformersList from './NewPerformersList';
+import PerformersList from './PerformersList';
 import '../css/AccountSettings.css';
 
 
@@ -30,7 +30,7 @@ const AccountSettings = () => {
                 <CardContent className={classes.cardContent}>
                     <h2>Account Settings</h2>
                     <p>Logged in as <b>{localStorage.getItem(EMAIL_KEY)}</b></p>
-                    <NewPerformersList />
+                    <PerformersList />
                     <Button 
                         variant="contained" 
                         color="primary" 

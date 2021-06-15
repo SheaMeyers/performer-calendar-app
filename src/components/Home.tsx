@@ -2,7 +2,7 @@ import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import NewPerformersList from './NewPerformersList';
+import PerformersList from './PerformersList';
 import Calendar from './Calendar';
 import '../css/Home.css';
 
@@ -24,7 +24,7 @@ const Home = () => {
       <Card className={classes.card}>
         <CardContent>
           <h2>Performers</h2>
-          <NewPerformersList showCheckbox={true} />
+          <PerformersList showCheckbox={true} />
         </CardContent>
       </Card>
       <Calendar />

@@ -1,7 +1,9 @@
-import React from 'react';
 import { useSelector } from "react-redux";
-import UserPerformer from './UserPerformer';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import { ReduxState } from "../redux";
+import SearchPerformers from './SearchPerformers';
+import Performer from './Performer';
 
 interface PerformerType {
     id: number;
@@ -9,22 +11,32 @@ interface PerformerType {
     hex_color: string;
 }
 
-interface UserPerformersListProps {
+interface PerformerListProps {
     showCheckbox?: boolean;
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        paper: {
+            padding: '1rem',
+            background: 'lightgrey'
+        },
+    }),
+);
 
-const UserPerformersList = (props: UserPerformersListProps) => {
+const PerformerList = (props: PerformerListProps) => {
+    const classes = useStyles();
 
     const allPerformers = useSelector<ReduxState, ReduxState["allPerformers"]>(
         (state) => state.allPerformers
       );
 
     return (
-        <>
+        <Paper className={classes.paper}>
+            <SearchPerformers />
             {allPerformers.map((performer: PerformerType) => {
                 return (
-                    <UserPerformer 
+                    <Performer 
                         key={performer.name} 
                         id={performer.id} 
                         name={performer.name} 
@@ -33,9 +45,9 @@ const UserPerformersList = (props: UserPerformersListProps) => {
                     />
                 )
             })}
-        </>
+        </Paper>
     )
 
 }
 
-export default UserPerformersList;
+export default PerformerList;
