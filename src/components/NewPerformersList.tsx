@@ -14,13 +14,17 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-const NewPerformersList = () => {
+interface NewPerformersListProps {
+    showCheckbox?: boolean;
+}
+
+const NewPerformersList = (props: NewPerformersListProps) => {
     const classes = useStyles();
 
     return (
         <Paper className={classes.paper}>
             <SearchPerformers />
-            <UserPerformersList />
+            <UserPerformersList showCheckbox={props.showCheckbox} />
         </Paper>
     )
 

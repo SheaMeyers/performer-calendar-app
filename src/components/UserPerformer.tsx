@@ -12,6 +12,7 @@ interface UserPerformerProps {
     id: number;
     name: string;
     hex_color: string;
+    showCheckbox?: boolean;
 }
 
 
@@ -51,11 +52,13 @@ const UserPerformer = (props: UserPerformerProps) => {
 
     return (
         <Paper className={classes.paper}>
-            <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                style={{color: `${props.hex_color.toLocaleLowerCase()}`}}
-            />
+            {props.showCheckbox && 
+              <Checkbox
+                  checked={checked}
+                  onChange={handleChange}
+                  style={{color: `${props.hex_color.toLocaleLowerCase()}`}}
+              />
+            }
             <p className={classes.name}>{props.name}</p>
             <HighlightOffIcon 
               className={classes.icon}

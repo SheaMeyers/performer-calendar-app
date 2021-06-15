@@ -9,8 +9,12 @@ interface PerformerType {
     hex_color: string;
 }
 
+interface UserPerformersListProps {
+    showCheckbox?: boolean;
+}
 
-const UserPerformersList = () => {
+
+const UserPerformersList = (props: UserPerformersListProps) => {
 
     const allPerformers = useSelector<ReduxState, ReduxState["allPerformers"]>(
         (state) => state.allPerformers
@@ -20,7 +24,13 @@ const UserPerformersList = () => {
         <>
             {allPerformers.map((performer: PerformerType) => {
                 return (
-                    <UserPerformer key={performer.name} id={performer.id} name={performer.name} hex_color={performer.hex_color} />
+                    <UserPerformer 
+                        key={performer.name} 
+                        id={performer.id} 
+                        name={performer.name} 
+                        hex_color={performer.hex_color} 
+                        showCheckbox={props.showCheckbox}
+                    />
                 )
             })}
         </>
