@@ -47,7 +47,6 @@ const SearchPerformersResultsModal = (props: Props) => {
                 }, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
                     }
                 })
                 .then(response => setResults(response.data))
