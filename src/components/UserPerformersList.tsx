@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from "react-redux";
 import UserPerformer from './UserPerformer';
 import { ReduxState } from "../redux";
@@ -17,13 +17,13 @@ const UserPerformersList = () => {
       );
 
     return (
-        <Fragment>
+        <>
             {allPerformers.map((performer: PerformerType) => {
                 return (
                     <UserPerformer key={performer.name} id={performer.id} name={performer.name} hex_color={performer.hex_color} />
                 )
             })}
-        </Fragment>
+        </>
     )
 
 }
