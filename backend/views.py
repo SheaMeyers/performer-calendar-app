@@ -128,3 +128,32 @@ class GetInfo(APIView):
         }
 
         return Response(status=200, data=data)
+
+
+class GetEvents(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self, request: Request) -> Response:
+
+        data = SeatGeekPerformerSerializer(request.data).data
+        performer = Performer(**data)
+
+        events = []
+        for i in range(1, 100):
+            url = f"https://api.seatgeek.com/2/events?" \
+                  f"performers.id={performer.id}&" \
+                  f"client_id={settings.SEAT_GEEK_CLIENT_ID}&page={i}"
+            response = requests.get(url)
+            response_data = response.json()
+            events += response_data['events']
+            if (response_data['meta']['page'] * response_data['meta']['per_page']) > response_data['meta']['total']:
+                break
+
+        events_data = SeatGeekEventsSerializer(events, many=True, context={'performer': performer}).data
+
+        data = {
+            'events': events_data
+        }
+
+        return Response(status=200, data=data)

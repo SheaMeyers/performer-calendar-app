@@ -606,12 +606,35 @@ class GetInfoTests(TestCase):
 
     @patch('requests.get', return_value=MockedSeatGeekResponse())
     def test_get_info_returns_correct_performers_and_events(self, _mock):
-        get_events_url = reverse('get_info')
-        response = self.client.get(get_events_url, HTTP_AUTHORIZATION=f"Token {self.token.key}")
+        get_info_url = reverse('get_info')
+        response = self.client.get(get_info_url, HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['performers'], [{'id': 1069, 'name': 'Korn', 'hex_color': '#B98702'},
                                                          {'id': 1070, 'name': 'Slipknot', 'hex_color': '#B98703'}])
+        self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-14T23:59:59',
+                                                            'geo_location': {'lat': 41.3506, 'lon': -75.6622},
+                                                            'hex_color': '#B98702',
+                                                            'id': 5405028,
+                                                            'start': '2021-08-14T22:30:00',
+                                                            'title': 'Korn',
+                                                            'tooltip': 'The Pavilion at Montage Mountain, Scranton, US',
+                                                            'url': 'https://seatgeek.com/korn-with-staind-tickets/scranton-pennsylvania-the-pavilion-at-montage-mountain-2021-08-14-6-30-pm/concert/5405028?seatgeekcalendardotcom=true'})
+
+
+class GetEventsTests(TestCase):
+
+    @patch('requests.get', return_value=MockedSeatGeekResponse())
+    def test_get_events_returns_correct_events(self, _mock):
+        get_events_url = reverse('get_events')
+        response = self.client.post(get_events_url, data={
+            'id': 1069,
+            'name': 'Korn',
+            'hex_color': '#B98702'
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Performer.objects.count(), 0)
         self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-14T23:59:59',
                                                             'geo_location': {'lat': 41.3506, 'lon': -75.6622},
                                                             'hex_color': '#B98702',
