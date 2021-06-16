@@ -36,6 +36,7 @@ interface PerformerResult {
 
 const SearchPerformersResultsModal = (props: Props) => {
     const [results, setResults] = useState<PerformerResult[] | null>(null);
+    const [feedback, setFeedback] = useState<string>('');
     const dispatch = useDispatch();
     const classes = useStyles();
 
@@ -65,12 +66,14 @@ const SearchPerformersResultsModal = (props: Props) => {
             {props.query === "" && <p>No value entered</p>}
             {results === null && props.query !== '' && <p>Searching...</p>}
             {results === [] && <p>No results found</p>}
+            {feedback && <p>{feedback}</p>}
             {results && 
                 results.map(result => {
                     return (
                         <Paper 
                             className={classes.paper}
                             onClick={_ => {
+                                setFeedback(`Getting events for ${result.name}. Please wait.`)
                                 let headers: { 'Content-Type': string; 'Authorization'?: string; } = {'Content-Type': 'application/json'}
                                 if (localStorage.getItem(BACKEND_KEY)) {
                                     headers['Authorization'] = `Token ${localStorage.getItem(BACKEND_KEY)}`
