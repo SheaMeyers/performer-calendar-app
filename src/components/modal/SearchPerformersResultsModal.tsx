@@ -71,15 +71,17 @@ const SearchPerformersResultsModal = (props: Props) => {
                         <Paper 
                             className={classes.paper}
                             onClick={_ => {
+                                let headers: { 'Content-Type': string; 'Authorization'?: string; } = {'Content-Type': 'application/json'}
+                                if (localStorage.getItem(BACKEND_KEY)) {
+                                    headers['Authorization'] = `Token ${localStorage.getItem(BACKEND_KEY)}`
+                                }
+
                                 axios.post(`${BACKEND_URL}/backend/add-performer/`, 
                                 {
                                     id: result.id,
                                     name: result.name
                                 }, {
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
-                                    }
+                                    headers
                                 })
                                 .then(response => {
                                     dispatch({ type: "ADD_PERFORMERS", payload: [response.data.performer] });
