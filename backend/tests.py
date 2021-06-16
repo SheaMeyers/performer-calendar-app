@@ -549,7 +549,7 @@ class AddPerformerTests(TestCase):
         self.token = Token.objects.create(user=self.user)
 
     @patch('requests.get', return_value=MockedSeatGeekResponse())
-    def test_add_performer_adds_performer(self, _mock):
+    def test_add_performer_adds_performer_to_user(self, _mock):
         add_performer_url = reverse('add_performer')
         data = {
             'id': 1069,
@@ -566,6 +566,29 @@ class AddPerformerTests(TestCase):
         self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-14T23:59:59',
                                                             'geo_location': {'lat': 41.3506, 'lon': -75.6622},
                                                             'hex_color': performer.hex_color,
+                                                            'id': 5405028,
+                                                            'start': '2021-08-14T22:30:00',
+                                                            'title': 'Korn',
+                                                            'tooltip': 'The Pavilion at Montage Mountain, Scranton, US',
+                                                            'url': 'https://seatgeek.com/korn-with-staind-tickets/scranton-pennsylvania-the-pavilion-at-montage-mountain-2021-08-14-6-30-pm/concert/5405028?seatgeekcalendardotcom=true'})
+
+    @patch('requests.get', return_value=MockedSeatGeekResponse())
+    def test_add_performer_without_user_returns_events_without_creating_performer(self, _mock):
+        add_performer_url = reverse('add_performer')
+        data = {
+            'id': 1069,
+            'name': 'Korn',
+        }
+        response = self.client.post(add_performer_url, data=data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Performer.objects.count(), 0)
+        self.assertEqual(response.json()['performer']['id'], data['id'])
+        self.assertEqual(response.json()['performer']['name'], data['name'])
+        self.assertIsNotNone(response.json()['performer']['hex_color'])
+        self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-14T23:59:59',
+                                                            'geo_location': {'lat': 41.3506, 'lon': -75.6622},
+                                                            'hex_color': response.json()['performer']['hex_color'],
                                                             'id': 5405028,
                                                             'start': '2021-08-14T22:30:00',
                                                             'title': 'Korn',
@@ -612,29 +635,6 @@ class GetInfoTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['performers'], [{'id': 1069, 'name': 'Korn', 'hex_color': '#B98702'},
                                                          {'id': 1070, 'name': 'Slipknot', 'hex_color': '#B98703'}])
-        self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-14T23:59:59',
-                                                            'geo_location': {'lat': 41.3506, 'lon': -75.6622},
-                                                            'hex_color': '#B98702',
-                                                            'id': 5405028,
-                                                            'start': '2021-08-14T22:30:00',
-                                                            'title': 'Korn',
-                                                            'tooltip': 'The Pavilion at Montage Mountain, Scranton, US',
-                                                            'url': 'https://seatgeek.com/korn-with-staind-tickets/scranton-pennsylvania-the-pavilion-at-montage-mountain-2021-08-14-6-30-pm/concert/5405028?seatgeekcalendardotcom=true'})
-
-
-class GetEventsTests(TestCase):
-
-    @patch('requests.get', return_value=MockedSeatGeekResponse())
-    def test_get_events_returns_correct_events(self, _mock):
-        get_events_url = reverse('get_events')
-        response = self.client.post(get_events_url, data={
-            'id': 1069,
-            'name': 'Korn',
-            'hex_color': '#B98702'
-        })
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(Performer.objects.count(), 0)
         self.assertDictEqual(response.json()['events'][0], {'end': '2021-08-14T23:59:59',
                                                             'geo_location': {'lat': 41.3506, 'lon': -75.6622},
                                                             'hex_color': '#B98702',
