@@ -2,6 +2,7 @@ import requests
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -95,7 +96,12 @@ class RemovePerformer(APIView):
     def post(self, request: Request) -> Response:
         name = request.data.get('name')
 
-        performer = Performer.objects.get(name=name)
+        try:
+            performer = Performer.objects.get(name=name)
+        except ObjectDoesNotExist:
+            # Happens in the case of:
+            #  User adds a performer when not logged in, user logs in, user tries to remove performer
+            return Response(status=200)
 
         request.user.performers.remove(performer)
 
