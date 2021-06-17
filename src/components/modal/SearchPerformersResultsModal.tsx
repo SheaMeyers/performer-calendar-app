@@ -91,10 +91,12 @@ const SearchPerformersResultsModal = (props: Props) => {
                                     dispatch({ type: "ADD_EVENTS", payload: response.data.events });
                                     props.handleModalClose();
                                     setResults(null);
+                                    setFeedback('');
                                 })
                                 .catch(_ => {
                                     props.handleModalClose();
                                     setResults(null);
+                                    setFeedback('');
                                 })
                             }}
                         >
