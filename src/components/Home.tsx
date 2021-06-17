@@ -1,15 +1,34 @@
 import React from 'react';
-import PerformerList from './PerformerList';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import PerformersList from './PerformersList';
 import Calendar from './Calendar';
 import '../css/Home.css';
 
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    card: {
+      margin: '1rem'
+    }
+  }),
+);
+
 const Home = () => {
+
+  const classes = useStyles();
+
   return (
-      <div className="Home">
-        <PerformerList />
-        <Calendar />
-      </div>
+    <div className="Home">
+      <Card className={classes.card}>
+        <CardContent>
+          <h2>Performers</h2>
+          <PerformersList showCheckbox={true} />
+        </CardContent>
+      </Card>
+      <Calendar />
+    </div>
   );
 }
 

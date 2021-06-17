@@ -1,13 +1,10 @@
-import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Paper from '@material-ui/core/Paper';
-import SearchPerformers from './SearchPerformers';
-import UserPerformersList from './UserPerformersList';
 import history from '../history';
 import { EMAIL_KEY, handleLogout } from '../constants';
+import PerformersList from './PerformersList';
 import '../css/AccountSettings.css';
 
 
@@ -19,11 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
         cardContent: {
             display: 'flex',
             flexDirection: 'column',
-        },
-        paper: {
-            padding: '1rem',
-            background: 'lightgrey'
-        },
+        }
     }),
 );
 
@@ -37,10 +30,7 @@ const AccountSettings = () => {
                 <CardContent className={classes.cardContent}>
                     <h2>Account Settings</h2>
                     <p>Logged in as <b>{localStorage.getItem(EMAIL_KEY)}</b></p>
-                    <Paper className={classes.paper}>
-                        <SearchPerformers />
-                        <UserPerformersList />
-                    </Paper>
+                    <PerformersList />
                     <Button 
                         variant="contained" 
                         color="primary" 

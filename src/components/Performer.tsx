@@ -1,39 +1,86 @@
 import React, { useState } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
+import axios from 'axios';
 import { useDispatch } from "react-redux";
-import '../css/Performer.css';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Checkbox from '@material-ui/core/Checkbox';
+import Paper from '@material-ui/core/Paper';
+import { BACKEND_KEY, BACKEND_URL } from '../constants';
 
 
 interface PerformerProps {
-    id: number;
-    name: string;
-    hex_color: string;
+  id: number;
+  name: string;
+  hex_color: string;
+  showCheckbox?: boolean;
 }
 
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    paper: {
+      display: 'flex',
+      alignItems: 'center',
+      margin: '1rem 0',
+      padding: '0 1rem'
+    },
+    name: {
+      flexGrow: 1
+    },
+    icon: {
+      color: 'red',
+      cursor: 'pointer'
+    }
+  }),
+);
+
 const Performer = (props: PerformerProps) => {
-    const [checked, setChecked] = useState<boolean>(true);
 
-    const dispatch = useDispatch();
+  const [checked, setChecked] = useState<boolean>(true);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
-        if (event.target.checked) {
-            dispatch({ type: "ADD_SELECTED_PERFORMER", payload: props });
-        } else {
-            dispatch({ type: "REMOVE_SELECTED_PERFORMER", payload: props.name });
-        }
-    };
+  const classes = useStyles();
+  const dispatch = useDispatch();
 
-    return (
-        <div className="Performer-div">
-            <Checkbox
-                checked={checked}
-                onChange={handleChange}
-                style={{color: `${props.hex_color.toLocaleLowerCase()}`}}
-            />
-            <p>{props.name}</p>
-        </div>
-    )
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+    if (event.target.checked) {
+      dispatch({ type: "ADD_SELECTED_PERFORMER", payload: props });
+    } else {
+      dispatch({ type: "REMOVE_SELECTED_PERFORMER", payload: props.name });
+    }
+  };
+
+  return (
+    <Paper className={classes.paper}>
+      {props.showCheckbox &&
+        <Checkbox
+          checked={checked}
+          onChange={handleChange}
+          style={{ color: `${props.hex_color.toLocaleLowerCase()}` }}
+        />
+      }
+      <p className={classes.name}>{props.name}</p>
+      <HighlightOffIcon
+        className={classes.icon}
+        onClick={_ => {
+          dispatch({ type: "REMOVE_PERFORMER", payload: props.name });
+          dispatch({ type: "REMOVE_EVENTS", payload: props.name });
+
+          if (localStorage.getItem(BACKEND_KEY)) {
+            axios.post(`${BACKEND_URL}/backend/remove-performer/`, {
+              name: props.name
+            }, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
+              }
+            }).then(_ => {/* Do nothing.*/ })
+              .catch(_ => {/* Do nothing.*/ })
+          }
+        }}
+      />
+    </Paper>
+  )
 
 }
 

@@ -9,7 +9,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
@@ -37,7 +37,7 @@ class PasswordResetConfirmView(APIView):
 
 class SearchPerformers(APIView):
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request: Request) -> Response:
         query = request.data.get('query')
@@ -54,14 +54,18 @@ class SearchPerformers(APIView):
 
 class AddPerformer(APIView):
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request: Request) -> Response:
         data = SeatGeekPerformerSerializer(request.data).data
 
-        performer, _ = Performer.objects.get_or_create(**data)
-
-        request.user.performers.add(performer)
+        # If we know the user then create add to their performers
+        # else create a temporary instance for getting events
+        if request.user.is_anonymous:
+            performer = Performer(**data)
+        else:
+            performer, _ = Performer.objects.get_or_create(**data)
+            request.user.performers.add(performer)
 
         events = []
         for i in range(1, 100):
