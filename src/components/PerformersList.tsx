@@ -4,16 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import { ReduxState } from "../redux";
 import SearchPerformers from './SearchPerformers';
 import Performer from './Performer';
+import { Performer as PerformerInterface } from '../interfaces';
 
-interface PerformerType {
-    id: number;
-    name: string;
-    hex_color: string;
-}
-
-interface PerformerListProps {
-    showCheckbox?: boolean;
-}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,6 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
+
+
+interface PerformerListProps {
+    showCheckbox?: boolean;
+}
+
 
 const PerformerList = (props: PerformerListProps) => {
     const classes = useStyles();
@@ -34,7 +32,7 @@ const PerformerList = (props: PerformerListProps) => {
     return (
         <Paper className={classes.paper}>
             <SearchPerformers />
-            {allPerformers.map((performer: PerformerType) => {
+            {allPerformers.map((performer: PerformerInterface) => {
                 return (
                     <Performer 
                         key={performer.name} 

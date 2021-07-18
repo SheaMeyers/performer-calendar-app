@@ -6,14 +6,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import { BACKEND_KEY, BACKEND_URL } from '../constants';
-
-
-interface PerformerProps {
-  id: number;
-  name: string;
-  hex_color: string;
-  showCheckbox?: boolean;
-}
+import { ShowPerformer } from '../interfaces';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Performer = (props: PerformerProps) => {
+const Performer = (props: ShowPerformer) => {
 
   const [checked, setChecked] = useState<boolean>(true);
 

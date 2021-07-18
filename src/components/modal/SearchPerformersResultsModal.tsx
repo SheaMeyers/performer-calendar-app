@@ -6,6 +6,7 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { BACKEND_KEY, BACKEND_URL } from '../../constants';
+import { BasePerformer } from '../../interfaces';
 import '../../css/Modal.css';
 import '../../css/SearchPerformersResultsModal.css';
 
@@ -29,13 +30,9 @@ interface Props {
     handleModalClose: Function
 }
 
-interface PerformerResult {
-    name: string
-    id: number
-}
 
 const SearchPerformersResultsModal = (props: Props) => {
-    const [results, setResults] = useState<PerformerResult[] | null>(null);
+    const [results, setResults] = useState<BasePerformer[] | null>(null);
     const [feedback, setFeedback] = useState<string>('');
     const dispatch = useDispatch();
     const classes = useStyles();

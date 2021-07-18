@@ -2,8 +2,8 @@ import axios from 'axios';
 import history from './history';
 import { store } from './redux';
 
-// const BACKEND_URL = 'http://localhost:8000';
-const BACKEND_URL = 'https://www.seatgeekcalendar.com';
+const BACKEND_URL = 'http://localhost:8000';
+// const BACKEND_URL = 'https://www.seatgeekcalendar.com';
 
 const BACKEND_KEY = 'backendApiKey';
 const EMAIL_KEY = 'userEmail';

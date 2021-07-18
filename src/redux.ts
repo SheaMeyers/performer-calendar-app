@@ -2,6 +2,7 @@ import { createStore } from "redux";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { EMAIL_KEY } from './constants';
+import { Performer, Event } from './interfaces';
 
 
 const persistConfig = {
@@ -9,22 +10,6 @@ const persistConfig = {
     storage,
 }
 
-
-interface Performer {
-    id: number
-    name: string
-    hex_color: string
-}
-
-interface Event {
-    id: number;
-    title: string;
-    start: Date;
-    end: Date;
-    hex_color: string;
-    url: string;
-    tooltip?: string;
-}
 
 export interface ReduxState {
     allPerformers: Performer[];
@@ -82,7 +67,7 @@ export const performerReducer = (
         case "ADD_EVENTS": {
             const events = action.payload;
             // Convert to date objects
-            events.map(event => {
+            events.forEach(event => {
                 event.start = new Date(event.start);
                 event.end = new Date(event.end);
             });

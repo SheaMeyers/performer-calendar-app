@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useSelector } from "react-redux";
 import AppBar from '@material-ui/core/AppBar';
@@ -60,7 +59,7 @@ const HeaderBar = () => {
                       </Typography>
                   </div>
                   <a href="https://seatgeek.com/?seatgeekcalendardotcom=true" target="_blank" rel="noopener">
-                    <img src="/static/SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar Image" />
+                    <img src="/static/SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar" />
                   </a>
                 </div>
                 {

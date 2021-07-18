@@ -6,24 +6,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { ReduxState } from "../redux";
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Performer, Event } from '../interfaces';
 
-
-interface Performer {
-    id: number
-    name: string
-    hex_color: string
-}
-
-
-interface Event {
-    id: number;
-    title: string;
-    start: Date;
-    end: Date;
-    hex_color: string;
-    url: string;
-    tooltip?: string; 
-}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
+
 
 const ReactBigCalendar = () => {
 
@@ -47,10 +32,8 @@ const ReactBigCalendar = () => {
         const style = {
             backgroundColor: event.hex_color.toLocaleLowerCase(),
             borderRadius: '0px',
-            opacity: 0.8,
-            color: 'black',
-            border: '0px',
-            display: 'block'
+            opacity: 0.5,
+            color: 'black'
         }
         return {
             style: style
