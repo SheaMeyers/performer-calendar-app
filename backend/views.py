@@ -2,6 +2,7 @@ import requests
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
@@ -17,6 +18,7 @@ from rest_framework.views import APIView
 
 from .models import Performer
 from .serializers import SeatGeekPerformerSerializer, SeatGeekEventsSerializer
+from .utils import get_lat_lon_of_request
 
 UserModel = get_user_model()
 
@@ -79,7 +81,10 @@ class AddPerformer(APIView):
             if (response_data['meta']['page'] * response_data['meta']['per_page']) > response_data['meta']['total']:
                 break
 
-        events_data = SeatGeekEventsSerializer(events, many=True, context={'performer': performer}).data
+        events_data = SeatGeekEventsSerializer(events,
+                                               many=True,
+                                               context={'performer': performer,
+                                                        'user_lat_lon': get_lat_lon_of_request(request)}).data
 
         data = {
             'performer': SeatGeekPerformerSerializer(performer).data,
@@ -130,7 +135,10 @@ class GetInfo(APIView):
                 if (response_data['meta']['page'] * response_data['meta']['per_page']) > response_data['meta']['total']:
                     break
 
-            events_data += SeatGeekEventsSerializer(events, many=True, context={'performer': performer}).data
+            events_data = SeatGeekEventsSerializer(events,
+                                                   many=True,
+                                                   context={'performer': performer,
+                                                            'user_lat_lon': get_lat_lon_of_request(request)}).data
 
         data = {
             'performers': performers_data,

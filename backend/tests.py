@@ -627,8 +627,9 @@ class GetInfoTests(TestCase):
         self.user.performers.add(self.performer_2)
         self.token = Token.objects.create(user=self.user)
 
+    @patch('backend.views.get_lat_lon_of_request', return_value=(0, 0))
     @patch('requests.get', return_value=MockedSeatGeekResponse())
-    def test_get_info_returns_correct_performers_and_events(self, _mock):
+    def test_get_info_returns_correct_performers_and_events(self, _mock, _mock2):
         get_info_url = reverse('get_info')
         response = self.client.get(get_info_url, HTTP_AUTHORIZATION=f"Token {self.token.key}")
 

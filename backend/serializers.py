@@ -34,6 +34,7 @@ class SeatGeekEventsSerializer(serializers.Serializer):
         performer = self.context['performer']
         data['title'] = performer.name
         data['hex_color'] = performer.hex_color
+        border_width = (self.context['user_lat_lon'][0], self.context['user_lat_lon'][1])
         data['border'] = f'10px solid {get_hex_color()}'
 
         query_param_symbol = '&' if '?' in data['url'] else '?'

@@ -215,4 +215,6 @@ REST_FRAMEWORK = {
     ),
 }
 
+GEOIP_PATH = os.path.join(BASE_DIR, 'GeoLite2-City.mmdb')
+
 SEAT_GEEK_CLIENT_ID = 'MjE5Mjg3MTN8MTYyMTA3ODMzNC40NDc3NDI1'
