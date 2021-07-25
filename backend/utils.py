@@ -24,10 +24,15 @@ def get_lat_lon_of_request(request: Request):
 
 
 def get_distance_between_lat_lons(lat1, lon1, lat2, lon2):
-    distance_longitude = radians(lon2) - radians(lon1)
-    distance_latitude = radians(lat2) - radians(lat1)
+    lat1 = radians(lat1)
+    lon1 = radians(lon1)
+    lat2 = radians(lat2)
+    lon2 = radians(lon2)
 
-    a = sin(distance_latitude / 2) ** 2 + cos(lat1) * cos(lat2) * sin(distance_longitude / 2) ** 2
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
 
     earth_radius = 6373.0
@@ -35,5 +40,17 @@ def get_distance_between_lat_lons(lat1, lon1, lat2, lon2):
 
 
 def get_border_width(lat1, lon1, lat2, lon2):
-    distance = get_distance_between_lat_lons(lat1, lon1, lat2, lon2)
-    return distance
+    distance_in_kilometers = get_distance_between_lat_lons(lat1, lon1, lat2, lon2)
+
+    if distance_in_kilometers < 5:
+        width = 10
+    elif distance_in_kilometers < 10:
+        width = 8
+    elif distance_in_kilometers < 40:
+        width = 6
+    elif distance_in_kilometers < 100:
+        width = 3
+    else:
+        width = 0
+
+    return width

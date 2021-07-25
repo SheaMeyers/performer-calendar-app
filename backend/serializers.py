@@ -2,7 +2,7 @@ from datetime import datetime
 
 from rest_framework import serializers
 
-from .utils import get_hex_color
+from .utils import get_hex_color, get_border_width
 
 
 class SeatGeekPerformerSerializer(serializers.Serializer):
@@ -34,8 +34,11 @@ class SeatGeekEventsSerializer(serializers.Serializer):
         performer = self.context['performer']
         data['title'] = performer.name
         data['hex_color'] = performer.hex_color
-        border_width = (self.context['user_lat_lon'][0], self.context['user_lat_lon'][1])
-        data['border'] = f'10px solid {get_hex_color()}'
+        border_width = get_border_width(self.context['user_lat_lon'][0],
+                                        self.context['user_lat_lon'][1],
+                                        instance['venue']['location']['lat'],
+                                        instance['venue']['location']['lon'])
+        data['border'] = f'{border_width}px solid {get_hex_color()}'
 
         query_param_symbol = '&' if '?' in data['url'] else '?'
         data['url'] += f"{query_param_symbol}seatgeekcalendardotcom=true"
