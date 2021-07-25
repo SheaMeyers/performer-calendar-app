@@ -31,9 +31,9 @@ const ReactBigCalendar = () => {
     const eventStyleGetter = (event: Event) => {
         const style = {
             backgroundColor: event.hex_color.toLocaleLowerCase(),
-            borderRadius: '0px',
-            opacity: 0.5,
-            color: 'black'
+            opacity: 0.8,
+            color: 'black',
+            border: event.border
         }
         return {
             style: style

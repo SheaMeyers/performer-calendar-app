@@ -19,4 +19,5 @@ export interface Event {
     hex_color: string;
     url: string;
     tooltip?: string;
+    border?: string;
 }
