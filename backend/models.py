@@ -1,10 +1,7 @@
-import random
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
-def get_hex_color():
-    return f'#{random.randint(1, 255):02X}{random.randint(1, 255):02X}{random.randint(1, 255):02X}'
+from .utils import get_hex_color
 
 
 class User(AbstractUser):

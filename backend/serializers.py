@@ -1,6 +1,8 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from rest_framework import serializers
+
+from .utils import get_hex_color
 
 
 class SeatGeekPerformerSerializer(serializers.Serializer):
@@ -32,7 +34,7 @@ class SeatGeekEventsSerializer(serializers.Serializer):
         performer = self.context['performer']
         data['title'] = performer.name
         data['hex_color'] = performer.hex_color
-        data['border'] = '10px solid black'
+        data['border'] = f'10px solid {get_hex_color()}'
 
         query_param_symbol = '&' if '?' in data['url'] else '?'
         data['url'] += f"{query_param_symbol}seatgeekcalendardotcom=true"
