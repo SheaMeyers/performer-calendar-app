@@ -31,11 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '45px',
       marginLeft: '5px'
     },
-    footerBar: {
-      backgroundColor: "#ffffff",
-      marginTop: "1rem",
-    },
-    footerBarText: {
+    extraInfoText: {
       color: "#000000",
       fontSize: "1rem"
     }
@@ -61,8 +57,11 @@ const HeaderBar = () => {
                     <img src="./SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar" />
                   </a>
                 </div>
-                <Typography className={classes.footerBarText} variant="h2">
-                  Questions or concerns?  <a href="mailto:seatgeekcalendar@gmail.com">Send an email</a>
+                <Typography className={classes.extraInfoText} variant="h2">
+                  Questions?  <br/>
+                  <a href="mailto:seatgeekcalendar@gmail.com">Send an email </a>
+                  or 
+                  <a href="https://github.com/SheaMeyers/performer-calendar-app" target="_blank" rel="noopener noreferrer"> see the code</a>
                 </Typography>
             </Toolbar>
         </AppBar>
