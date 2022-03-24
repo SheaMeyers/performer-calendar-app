@@ -1,7 +1,6 @@
 import { createStore } from "redux";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { EMAIL_KEY } from './constants';
 import { Performer, Event } from './interfaces';
 
 
@@ -22,18 +21,16 @@ const initialState = {
     allPerformers: [],
     selectedPerformers: [],
     events: [],
-    email: localStorage.getItem(EMAIL_KEY) || undefined,
 };
 
 
-export type Action = { type: "ADD_SELECTED_PERFORMER"; payload: Performer } |
+export type Action = 
+{ type: "ADD_SELECTED_PERFORMER"; payload: Performer } |
 { type: "ADD_PERFORMERS"; payload: Performer[] } |
 { type: "REMOVE_SELECTED_PERFORMER"; payload: string } |
 { type: "REMOVE_PERFORMER"; payload: string } |
 { type: "ADD_EVENTS"; payload: Event[] } |
-{ type: "REMOVE_EVENTS"; payload: string } |
-{ type: "ADD_EMAIL"; payload: string } |
-{ type: "LOGOUT" };
+{ type: "REMOVE_EVENTS"; payload: string };
 
 
 export const performerReducer = (
@@ -75,12 +72,6 @@ export const performerReducer = (
         }
         case "REMOVE_EVENTS": {
             return { ...state, events: state.events.filter(event => event.title !== action.payload) };
-        }
-        case "ADD_EMAIL": {
-            return { ...state, email: action.payload };
-        }
-        case "LOGOUT": {
-            return { ...state, email: undefined, events: [], selectedPerformers: [], allPerformers: [] };
         }
         default:
             return state;

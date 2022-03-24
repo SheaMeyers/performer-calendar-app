@@ -5,7 +5,6 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
-import { BACKEND_KEY, BACKEND_URL } from '../constants';
 import { ShowPerformer } from '../interfaces';
 
 
@@ -58,18 +57,6 @@ const Performer = (props: ShowPerformer) => {
         onClick={_ => {
           dispatch({ type: "REMOVE_PERFORMER", payload: props.name });
           dispatch({ type: "REMOVE_EVENTS", payload: props.name });
-
-          if (localStorage.getItem(BACKEND_KEY)) {
-            axios.post(`${BACKEND_URL}/backend/remove-performer/`, {
-              name: props.name
-            }, {
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem(BACKEND_KEY)}`
-              }
-            }).then(_ => {/* Do nothing.*/ })
-              .catch(_ => {/* Do nothing.*/ })
-          }
         }}
       />
     </Paper>

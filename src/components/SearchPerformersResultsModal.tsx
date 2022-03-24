@@ -5,10 +5,9 @@ import { useDispatch } from "react-redux";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import { BACKEND_KEY, BACKEND_URL } from '../../constants';
-import { BasePerformer } from '../../interfaces';
-import '../../css/Modal.css';
-import '../../css/SearchPerformersResultsModal.css';
+import { BasePerformer } from '../interfaces';
+import '../css/Modal.css';
+import '../css/SearchPerformersResultsModal.css';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,16 +38,17 @@ const SearchPerformersResultsModal = (props: Props) => {
 
     useEffect(() => {
         if (props.query && props.isOpen) {
-            axios.post(`${BACKEND_URL}/backend/search-performers/`, 
-                {
-                    query: props.query,
-                }, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => setResults(response.data))
-                .catch(_ => setResults([]))
+            // TODO Update this to make call directly to SeatGeekCalendar
+            // axios.post(`${BACKEND_URL}/backend/search-performers/`, 
+            //     {
+            //         query: props.query,
+            //     }, {
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //         }
+            //     })
+            //     .then(response => setResults(response.data))
+            //     .catch(_ => setResults([]))
         }
     }, [props.isOpen]);
 
@@ -71,30 +71,31 @@ const SearchPerformersResultsModal = (props: Props) => {
                             className={classes.paper}
                             onClick={_ => {
                                 setFeedback(`Getting events for ${result.name}. Please wait.`)
-                                let headers: { 'Content-Type': string; 'Authorization'?: string; } = {'Content-Type': 'application/json'}
-                                if (localStorage.getItem(BACKEND_KEY)) {
-                                    headers['Authorization'] = `Token ${localStorage.getItem(BACKEND_KEY)}`
-                                }
+                                // TODO Update this to make call to SeatGeekCalendar
+                                // let headers: { 'Content-Type': string; 'Authorization'?: string; } = {'Content-Type': 'application/json'}
+                                // if (localStorage.getItem(BACKEND_KEY)) {
+                                //     headers['Authorization'] = `Token ${localStorage.getItem(BACKEND_KEY)}`
+                                // }
 
-                                axios.post(`${BACKEND_URL}/backend/add-performer/`, 
-                                {
-                                    id: result.id,
-                                    name: result.name
-                                }, {
-                                    headers
-                                })
-                                .then(response => {
-                                    dispatch({ type: "ADD_PERFORMERS", payload: [response.data.performer] });
-                                    dispatch({ type: "ADD_EVENTS", payload: response.data.events });
-                                    props.handleModalClose();
-                                    setResults(null);
-                                    setFeedback('');
-                                })
-                                .catch(_ => {
-                                    props.handleModalClose();
-                                    setResults(null);
-                                    setFeedback('');
-                                })
+                                // axios.post(`${BACKEND_URL}/backend/add-performer/`, 
+                                // {
+                                //     id: result.id,
+                                //     name: result.name
+                                // }, {
+                                //     headers
+                                // })
+                                // .then(response => {
+                                //     dispatch({ type: "ADD_PERFORMERS", payload: [response.data.performer] });
+                                //     dispatch({ type: "ADD_EVENTS", payload: response.data.events });
+                                //     props.handleModalClose();
+                                //     setResults(null);
+                                //     setFeedback('');
+                                // })
+                                // .catch(_ => {
+                                //     props.handleModalClose();
+                                //     setResults(null);
+                                //     setFeedback('');
+                                // })
                             }}
                         >
                             <p>{result.name}</p>

@@ -1,12 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { useSelector } from "react-redux";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { ReduxState } from "../redux";
-import NotSignedInDropdown from './NotSignedInDropdown';
-import SignedInDropdown from './SignedInDropdown';
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,6 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
     seatGeekImage: {
       height: '45px',
       marginLeft: '5px'
+    },
+    footerBar: {
+      backgroundColor: "#ffffff",
+      marginTop: "1rem",
+    },
+    footerBarText: {
+      color: "#000000",
+      fontSize: "1rem"
     }
   }),
 );
@@ -43,10 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const HeaderBar = () => {
 
     const classes = useStyles();
-
-    const email = useSelector<ReduxState, ReduxState["email"]>(
-      (state) => state.email
-    );
 
     return (
         <AppBar position="static" className={classes.headerBar}>
@@ -62,13 +61,9 @@ const HeaderBar = () => {
                     <img src="/static/SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar" />
                   </a>
                 </div>
-                {
-                  email
-                  ?
-                  <SignedInDropdown />
-                  :
-                  <NotSignedInDropdown />
-                }
+                <Typography className={classes.footerBarText} variant="h2">
+                  Questions or concerns?  <a href="mailto:seatgeekcalendar@gmail.com">Send an email</a>
+                </Typography>
             </Toolbar>
         </AppBar>
     )
