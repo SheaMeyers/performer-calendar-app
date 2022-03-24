@@ -58,7 +58,7 @@ const HeaderBar = () => {
                       </Typography>
                   </div>
                   <a href="https://seatgeek.com/?seatgeekcalendardotcom=true" target="_blank" rel="noopener">
-                    <img src="/static/SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar" />
+                    <img src="./SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar" />
                   </a>
                 </div>
                 <Typography className={classes.footerBarText} variant="h2">
