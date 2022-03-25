@@ -1,7 +1,11 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useDispatch } from "react-redux"
+import Modal from "react-modal"
 import App from '../components/App';
+
+beforeEach(() => {
+    Modal.setAppElement = () => null
+})
 
 test('Clicking magnifying glass with no value displays message', () => {
     render(<App />)
@@ -67,19 +71,3 @@ test('Clicking entry in modal adds artist to performer list', async () => {
         expect(screen.queryByText('Korn')).toBeInTheDocument()
     })
 });
-
-test.only('Clicking checkmark removes event from calendar', () => {
-    render(<App />)
-    const dispatch = useDispatch()
-    dispatch({ type: "ADD_PERFORMERS", payload: [{ id: 1, name: 'Korn', hexColor: '#000000'}] })
-    const mockEvents = [{ 
-        id: 1, 
-        name: 'Korn', 
-        hexColor: '#000000',
-        start: new Date(),
-        end: new Date(),
-        url: 'http://test.com'
-    }]
-    dispatch({ type: "ADD_EVENTS", payload: mockEvents })
-    expect(screen.getByTitle('Korn')).toBeInTheDocument()
-})

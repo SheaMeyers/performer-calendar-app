@@ -38,6 +38,7 @@ const SearchPerformersResultsModal = (props: Props) => {
     const classes = useStyles()
 
     useEffect(() => {
+        Modal.setAppElement('body')
         if (props.query && props.isOpen) {
             axios.get(`${SEATGEEK_ENDPOINT}performers?q=${props.query}&client_id=${SEATGEEK_APIKEY}`)
               .then((response) => setResults(response.data.performers.map((performer: any): ShowPerformer => { 
@@ -55,7 +56,7 @@ const SearchPerformersResultsModal = (props: Props) => {
     return (
         <Modal
             isOpen={props.isOpen}
-            contentLabel="Forgot Password Modal"
+            contentLabel='Display search results modal'
             closeTimeoutMS={200}
             className="modal search-performers-results-modal"
         >
@@ -65,9 +66,10 @@ const SearchPerformersResultsModal = (props: Props) => {
             {results === [] && <p>No results found</p>}
             {feedback && <p>{feedback}</p>}
             {results && 
-                results.map(result => {
+                results.map((result: ShowPerformer) => {
                     return (
                         <Paper 
+                            key={result.id}
                             className={classes.paper}
                             onClick={_ => {
                                 setFeedback(`Getting events for ${result.name}. Please wait.`)
