@@ -14,8 +14,8 @@ export interface ShowPerformer extends Performer {
 export interface Event {
     id: number
     title: string
-    start: Date
-    end: Date
+    start: string | Date
+    end: string | Date
     hexColor: string
     url: string
     tooltip?: string

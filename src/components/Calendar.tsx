@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ReactBigCalendar = () => {
 
-    const events = useSelector<ReduxState, ReduxState["events"]>(
+    let events = useSelector<ReduxState, ReduxState["events"]>(
         (state) => state.events
       )
     const selectedPerformers = useSelector<ReduxState, ReduxState["selectedPerformers"]>(
@@ -55,7 +55,10 @@ const ReactBigCalendar = () => {
             <CardContent>
                 <Calendar
                     localizer={momentLocalizer(moment)}
-                    events={events.filter((event: Event) => performers_titles.includes(event.title))}
+                    events={events
+                            .filter((event: Event) => performers_titles.includes(event.title))
+                            .map((event: Event) => ({ ...event, start: new Date(event.start), end: new Date(event.end) }))
+                        }
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: 500 }}

@@ -79,8 +79,8 @@ const SearchPerformersResultsModal = (props: Props) => {
                                             return {
                                                 id: event.id,
                                                 title: result.name,
-                                                start: new Date(event.datetime_utc),
-                                                end: new Date(new Date(event.datetime_utc).setHours(23,59,59,0)),
+                                                start: event.datetime_local,
+                                                end: event.datetime_local.split('T')[0] + 'T23:59:59',
                                                 hexColor: result.hexColor,
                                                 url: event.url
                                             }
