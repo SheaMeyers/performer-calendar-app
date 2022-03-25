@@ -1,23 +1,23 @@
 export interface BasePerformer {
-    id: number;
-    name: string;
+    id: number
+    name: string
 }
 
 export interface Performer extends BasePerformer {
-    hex_color: string;
+    hexColor: string
 }
 
 export interface ShowPerformer extends Performer {
-    showCheckbox?: boolean;
+    showCheckbox?: boolean
 }
 
 export interface Event {
-    id: number;
-    title: string;
-    start: Date;
-    end: Date;
-    hex_color: string;
-    url: string;
-    tooltip?: string;
-    border?: string;
+    id: number
+    title: string
+    start: Date
+    end: Date
+    hexColor: string
+    url: string
+    tooltip?: string
+    border?: string
 }

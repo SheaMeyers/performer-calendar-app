@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import { ReduxState } from "../redux";
-import SearchPerformers from './SearchPerformers';
-import Performer from './Performer';
-import { Performer as PerformerInterface } from '../interfaces';
+import { useSelector } from "react-redux"
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import { ReduxState } from "../redux"
+import SearchPerformers from './SearchPerformers'
+import Performer from './Performer'
+import { Performer as PerformerInterface } from '../interfaces'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -14,20 +14,20 @@ const useStyles = makeStyles((theme: Theme) =>
             background: 'lightgrey'
         },
     }),
-);
+)
 
 
 interface PerformerListProps {
-    showCheckbox?: boolean;
+    showCheckbox?: boolean
 }
 
 
 const PerformerList = (props: PerformerListProps) => {
-    const classes = useStyles();
+    const classes = useStyles()
 
     const allPerformers = useSelector<ReduxState, ReduxState["allPerformers"]>(
         (state) => state.allPerformers
-      );
+      )
 
     return (
         <Paper className={classes.paper}>
@@ -35,10 +35,10 @@ const PerformerList = (props: PerformerListProps) => {
             {allPerformers.map((performer: PerformerInterface) => {
                 return (
                     <Performer 
+                        id={performer.id}
                         key={performer.name} 
-                        id={performer.id} 
                         name={performer.name} 
-                        hex_color={performer.hex_color} 
+                        hexColor={performer.hexColor} 
                         showCheckbox={props.showCheckbox}
                     />
                 )
@@ -48,4 +48,4 @@ const PerformerList = (props: PerformerListProps) => {
 
 }
 
-export default PerformerList;
+export default PerformerList

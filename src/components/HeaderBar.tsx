@@ -1,7 +1,7 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,12 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: "1rem"
     }
   }),
-);
+)
 
 
 const HeaderBar = () => {
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <AppBar position="static" className={classes.headerBar}>
@@ -50,10 +50,10 @@ const HeaderBar = () => {
                   <div>
                       <Typography className={classes.headerBarTitle} variant="h1">Seat Geek Calendar</Typography>
                       <Typography className={classes.headerBarSubTitle} variant="h2">
-                          Indepently operated.  Powered by
+                          Independently operated.  Powered by
                       </Typography>
                   </div>
-                  <a href="https://seatgeek.com/?seatgeekcalendardotcom=true" target="_blank" rel="noopener">
+                  <a href="https://seatgeek.com/?seatgeekcalendardotcom=true" target="_blank" rel="noopener noreferrer">
                     <img src="./SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar" />
                   </a>
                 </div>
@@ -68,4 +68,4 @@ const HeaderBar = () => {
     )
 }
 
-export default HeaderBar;
+export default HeaderBar

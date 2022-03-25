@@ -1,12 +1,12 @@
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import { useSelector } from "react-redux";
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { ReduxState } from "../redux";
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Performer, Event } from '../interfaces';
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import moment from 'moment'
+import { useSelector } from "react-redux"
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import { ReduxState } from "../redux"
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import { Performer, Event } from '../interfaces'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -15,22 +15,22 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: '1rem'
         }
     }),
-);
+)
 
 
 const ReactBigCalendar = () => {
 
     const events = useSelector<ReduxState, ReduxState["events"]>(
         (state) => state.events
-      );
+      )
     const selectedPerformers = useSelector<ReduxState, ReduxState["selectedPerformers"]>(
         (state) => state.selectedPerformers
-      );
+      )
     const performers_titles = selectedPerformers.map((selectedPerformers: Performer) => selectedPerformers.name)
 
     const eventStyleGetter = (event: Event) => {
         const style = {
-            backgroundColor: event.hex_color.toLocaleLowerCase(),
+            backgroundColor: event.hexColor,
             opacity: 0.8,
             color: 'black',
             border: event.border
@@ -41,14 +41,14 @@ const ReactBigCalendar = () => {
     }
 
     const eventTooltipGetter = (event: Event) => {
-        return event.tooltip || event.title;
+        return event.tooltip || event.title
     }
 
     const handleOnSelectEvent = (event: Event, syntheticEvent: React.SyntheticEvent) => {
-        window.open(event.url, "_blank", "noopener");
+        window.open(event.url, "_blank", "noopener")
     }
 
-    const classes = useStyles();
+    const classes = useStyles()
 
     return (
         <Card className={classes.card}>
@@ -68,4 +68,4 @@ const ReactBigCalendar = () => {
     )
 }
 
-export default ReactBigCalendar;
+export default ReactBigCalendar

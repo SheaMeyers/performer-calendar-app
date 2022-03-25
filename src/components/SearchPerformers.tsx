@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
-import Paper from '@material-ui/core/Paper';
-import SearchIcon from '@material-ui/icons/Search';
-import SearchPerformersResultsModal from './SearchPerformersResultsModal';
+import React, { useState } from 'react'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import InputBase from '@material-ui/core/InputBase'
+import Paper from '@material-ui/core/Paper'
+import SearchIcon from '@material-ui/icons/Search'
+import SearchPerformersResultsModal from './SearchPerformersResultsModal'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,17 +22,17 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 10,
     },
   }),
-);
+)
 
 const SearchPerformers = () => {
-  const classes = useStyles();
-  const [query, setQuery] = useState<string>('');
-  const [shouldSearchdModalBeOpen, setShouldSearchdModalBeOpen] = useState<boolean>(false);
+  const classes = useStyles()
+  const [query, setQuery] = useState<string>('')
+  const [shouldSearchedModalBeOpen, setShouldSearchedModalBeOpen] = useState<boolean>(false)
 
   const closeSearchModal = () => {
-    setQuery('');
-    setShouldSearchdModalBeOpen(false);
-  };
+    setQuery('')
+    setShouldSearchedModalBeOpen(false)
+  }
 
   return (
     <Paper className={classes.root}>
@@ -44,16 +44,16 @@ const SearchPerformers = () => {
         inputProps={{ 'aria-label': 'Search performers' }}
         onKeyDown={e => {
           if (e.code === "Enter") {
-            setShouldSearchdModalBeOpen(true);
+            setShouldSearchedModalBeOpen(true)
           }
         }}
       />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search"  onClick={_ => setShouldSearchdModalBeOpen(true)}>
+      <IconButton type="submit" className={classes.iconButton} aria-label="search"  onClick={_ => setShouldSearchedModalBeOpen(true)}>
         <SearchIcon />
       </IconButton>
       <SearchPerformersResultsModal 
         query={query}
-        isOpen={shouldSearchdModalBeOpen}
+        isOpen={shouldSearchedModalBeOpen}
         handleModalClose={closeSearchModal}
       />
     </Paper>
@@ -61,4 +61,4 @@ const SearchPerformers = () => {
 
 }
 
-export default SearchPerformers;
+export default SearchPerformers

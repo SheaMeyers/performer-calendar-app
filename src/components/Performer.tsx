@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useDispatch } from "react-redux";
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import Checkbox from '@material-ui/core/Checkbox';
-import Paper from '@material-ui/core/Paper';
-import { ShowPerformer } from '../interfaces';
+import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff'
+import Checkbox from '@material-ui/core/Checkbox'
+import Paper from '@material-ui/core/Paper'
+import { ShowPerformer } from '../interfaces'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,23 +23,23 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer'
     }
   }),
-);
+)
 
 const Performer = (props: ShowPerformer) => {
 
-  const [checked, setChecked] = useState<boolean>(true);
+  const [checked, setChecked] = useState<boolean>(true)
 
-  const classes = useStyles();
-  const dispatch = useDispatch();
+  const classes = useStyles()
+  const dispatch = useDispatch()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+    setChecked(event.target.checked)
     if (event.target.checked) {
-      dispatch({ type: "ADD_SELECTED_PERFORMER", payload: props });
+      dispatch({ type: "ADD_SELECTED_PERFORMER", payload: props })
     } else {
-      dispatch({ type: "REMOVE_SELECTED_PERFORMER", payload: props.name });
+      dispatch({ type: "REMOVE_SELECTED_PERFORMER", payload: props.name })
     }
-  };
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -48,15 +47,15 @@ const Performer = (props: ShowPerformer) => {
         <Checkbox
           checked={checked}
           onChange={handleChange}
-          style={{ color: `${props.hex_color.toLocaleLowerCase()}` }}
+          style={{ color: `${props.hexColor}` }}
         />
       }
       <p className={classes.name}>{props.name}</p>
       <HighlightOffIcon
         className={classes.icon}
         onClick={_ => {
-          dispatch({ type: "REMOVE_PERFORMER", payload: props.name });
-          dispatch({ type: "REMOVE_EVENTS", payload: props.name });
+          dispatch({ type: "REMOVE_PERFORMER", payload: props.name })
+          dispatch({ type: "REMOVE_EVENTS", payload: props.name })
         }}
       />
     </Paper>
@@ -64,4 +63,4 @@ const Performer = (props: ShowPerformer) => {
 
 }
 
-export default Performer;
+export default Performer
