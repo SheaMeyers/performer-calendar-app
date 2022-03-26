@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 
-const ReactBigCalendar = () => {
+const PerformerCalendar = () => {
 
     let events = useSelector<ReduxState, ReduxState["events"]>(
         (state) => state.events
@@ -71,4 +71,4 @@ const ReactBigCalendar = () => {
     )
 }
 
-export default ReactBigCalendar
+export default PerformerCalendar

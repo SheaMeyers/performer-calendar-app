@@ -3,7 +3,7 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import PerformersList from './PerformersList'
-import Calendar from './Calendar'
+import PerformerCalendar from './PerformerCalendar'
 import '../css/Home.css'
 
 
@@ -27,7 +27,7 @@ const Home = () => {
           <PerformersList showCheckbox={true} />
         </CardContent>
       </Card>
-      <Calendar />
+      <PerformerCalendar />
     </div>
   )
 }
