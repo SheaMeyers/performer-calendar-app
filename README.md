@@ -23,6 +23,13 @@ npm start
 
 4. That's it!  Go to http://localhost:3000 to see the app running
 
+## Testing
+
+Run the test suite using
+```
+npm test
+```
+
 ## Live Demo
 
 You can see the project running live at https://seatgeekcalendar.com
