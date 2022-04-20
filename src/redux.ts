@@ -24,7 +24,7 @@ const initialState = {
 }
 
 
-export type Action = 
+export type ReduxAction = 
 { type: "ADD_SELECTED_PERFORMER", payload: Performer } |
 { type: "ADD_PERFORMERS", payload: Performer[] } |
 { type: "REMOVE_SELECTED_PERFORMER", payload: string } |
@@ -35,7 +35,7 @@ export type Action =
 
 export const performerReducer = (
     state: ReduxState = initialState,
-    action: Action
+    action: ReduxAction
 ) => {
     switch (action.type) {
         case "ADD_SELECTED_PERFORMER": {

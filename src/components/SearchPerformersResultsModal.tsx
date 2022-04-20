@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Modal from "react-modal"
-import axios from "axios"
 import { useDispatch } from "react-redux"
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-import { ShowPerformer, Event } from '../interfaces'
-import { SEATGEEK_ENDPOINT, SEATGEEK_APIKEY } from '../api'
+import { ShowPerformer } from '../interfaces'
+import { getPerformers, getPerformerEvents } from '../api'
 import '../css/Modal.css'
 import '../css/SearchPerformersResultsModal.css'
 
@@ -39,17 +38,13 @@ const SearchPerformersResultsModal = (props: Props) => {
 
     useEffect(() => {
         Modal.setAppElement('body')
+        const addPerformers = async (query: string) => {
+            const performers = await getPerformers(query)
+            setResults(performers)
+        }
+
         if (props.query && props.isOpen) {
-            axios.get(`${SEATGEEK_ENDPOINT}performers?q=${props.query}&client_id=${SEATGEEK_APIKEY}`)
-              .then((response) => setResults(response.data.performers.map((performer: any): ShowPerformer => { 
-                  return { 
-                      id: performer.id,
-                      name: performer.name,
-                      hexColor: `#${Math.floor(Math.random()*16777215).toString(16)}`,
-                      showCheckbox: true
-                  }
-                })))
-              .catch((_) => setResults([]))
+            addPerformers(props.query)
         }
     }, [props.isOpen])
 
@@ -71,30 +66,14 @@ const SearchPerformersResultsModal = (props: Props) => {
                         <Paper 
                             key={result.id}
                             className={classes.paper}
-                            onClick={_ => {
+                            onClick={async () => {
                                 setFeedback(`Getting events for ${result.name}. Please wait.`)
-                                axios.get(`${SEATGEEK_ENDPOINT}events?performers.id=${result.id}&client_id=${SEATGEEK_APIKEY}`)
-                                    .then(response => {
-                                        const events: Event[] = response.data.events.map((event: any) => {
-                                            return {
-                                                id: event.id,
-                                                title: result.name,
-                                                start: event.datetime_local,
-                                                end: event.datetime_local.split('T')[0] + 'T23:59:59',
-                                                hexColor: result.hexColor,
-                                                url: event.url
-                                            }
-                                        })
-                                        dispatch({ type: "ADD_PERFORMERS", payload: [result] })
-                                        dispatch({ type: "ADD_EVENTS", payload: events })
-                                        props.handleModalClose()
-                                        setResults(null)
-                                        setFeedback('')
-                                    }).catch(_ => {
-                                        props.handleModalClose()
-                                        setResults(null)
-                                        setFeedback('')
-                                    })
+                                const events = await getPerformerEvents(result)
+                                dispatch({ type: "ADD_PERFORMERS", payload: [result] })
+                                dispatch({ type: "ADD_EVENTS", payload: events })
+                                props.handleModalClose()
+                                setResults(null)
+                                setFeedback('')
                             }}
                         >
                             <p>{result.name}</p>
