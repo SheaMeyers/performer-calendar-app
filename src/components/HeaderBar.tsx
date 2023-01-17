@@ -59,9 +59,7 @@ const HeaderBar = () => {
                 </div>
                 <Typography className={classes.extraInfoText} variant="h2">
                   Questions?  <br/>
-                  <a href="mailto:ticketmastercalendar@gmail.com">Send an email </a>
-                  or 
-                  <a href="https://github.com/SheaMeyers/performer-calendar-app" target="_blank" rel="noopener noreferrer"> see the code</a>
+                  <a href="https://github.com/SheaMeyers/performer-calendar-app" target="_blank" rel="noopener noreferrer">see the code</a>
                 </Typography>
             </Toolbar>
         </AppBar>
