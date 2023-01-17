@@ -1,7 +1,7 @@
 import { rest } from "msw";
 
 export const handlers = [
-  rest.get('https://api.seatgeek.com/2/performers', (req, res, ctx) => {
+  rest.get('https://app.ticketmaster.com/discovery/v2/', (req, res, ctx) => {
     return res(
       ctx.json({
         data: {
@@ -12,7 +12,7 @@ export const handlers = [
     );
   }),
 
-  rest.get('https://api.seatgeek.com/2/events', (req, res, ctx) => {
+  rest.get('https://app.ticketmaster.com/discovery/v2/', (req, res, ctx) => {
     return res(
       ctx.json({
         data: [
