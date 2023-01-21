@@ -33,6 +33,8 @@ const SearchPerformers = () => {
   const [query, setQuery] = useState<string>('')
 
   const searchEvents = async () => {
+    if (!query) return
+    
     const newHexColor = generateHexColor()
     const events = await getEvents(query, newHexColor)
     const newResult: ShowPerformer = {
