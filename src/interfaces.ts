@@ -1,5 +1,5 @@
 export interface BasePerformer {
-    id: number
+    id: string
     name: string
 }
 
@@ -12,7 +12,7 @@ export interface ShowPerformer extends Performer {
 }
 
 export interface Event {
-    id: number
+    id: string
     title: string
     start: string | Date
     end: string | Date

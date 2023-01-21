@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
         flexGrow: 1,
         display: 'flex'
     },
-    seatGeekImage: {
+    ticketmasterImage: {
       height: '45px',
       marginLeft: '5px'
     },
@@ -48,20 +48,18 @@ const HeaderBar = () => {
             <Toolbar className={classes.headerBarToolbar}>
                 <div className={classes.headerBarTextDiv}>
                   <div>
-                      <Typography className={classes.headerBarTitle} variant="h1">Seat Geek Calendar</Typography>
+                      <Typography className={classes.headerBarTitle} variant="h1">Ticketmaster Calendar</Typography>
                       <Typography className={classes.headerBarSubTitle} variant="h2">
                           Independently operated.  Powered by
                       </Typography>
                   </div>
-                  <a href="https://seatgeek.com/?seatgeekcalendardotcom=true" target="_blank" rel="noopener noreferrer">
-                    <img src="./SeatGeekLogo.png" className={classes.seatGeekImage} alt="Seat Geek Calendar" />
+                  <a href="https://ticketmaster.com/?ticketmastercalendardotcom=true" target="_blank" rel="noopener noreferrer">
+                    <img src="./TicketmasterLogo.png" className={classes.ticketmasterImage} alt="Ticketmaster Calendar" />
                   </a>
                 </div>
                 <Typography className={classes.extraInfoText} variant="h2">
                   Questions?  <br/>
-                  <a href="mailto:seatgeekcalendar@gmail.com">Send an email </a>
-                  or 
-                  <a href="https://github.com/SheaMeyers/performer-calendar-app" target="_blank" rel="noopener noreferrer"> see the code</a>
+                  <a href="https://github.com/SheaMeyers/performer-calendar-app" target="_blank" rel="noopener noreferrer">see the code</a>
                 </Typography>
             </Toolbar>
         </AppBar>

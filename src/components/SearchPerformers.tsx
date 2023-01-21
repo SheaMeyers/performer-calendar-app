@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useDispatch } from "react-redux"
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import InputBase from '@material-ui/core/InputBase'
 import Paper from '@material-ui/core/Paper'
 import SearchIcon from '@material-ui/icons/Search'
-import SearchPerformersResultsModal from './SearchPerformersResultsModal'
+import { getEvents } from '../api'
+import { ShowPerformer } from '../interfaces'
+import { generateHexColor } from '../utils'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,12 +29,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchPerformers = () => {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const [query, setQuery] = useState<string>('')
-  const [shouldSearchedModalBeOpen, setShouldSearchedModalBeOpen] = useState<boolean>(false)
 
-  const closeSearchModal = () => {
-    setQuery('')
-    setShouldSearchedModalBeOpen(false)
+  const searchEvents = async () => {
+    if (!query) return
+    
+    const newHexColor = generateHexColor()
+    const events = await getEvents(query, newHexColor)
+    const newResult: ShowPerformer = {
+      hexColor: newHexColor,
+      id: newHexColor,
+      name: query,
+      showCheckbox: true
+    }
+    dispatch({ type: "ADD_PERFORMERS", payload: [newResult] })
+    dispatch({ type: "ADD_EVENTS", payload: events })
   }
 
   return (
@@ -42,20 +55,15 @@ const SearchPerformers = () => {
         className={classes.input}
         placeholder="Search Performers"
         inputProps={{ 'aria-label': 'Search performers' }}
-        onKeyDown={e => {
+        onKeyDown={async e => {
           if (e.code === "Enter") {
-            setShouldSearchedModalBeOpen(true)
+            await searchEvents()
           }
         }}
       />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search"  onClick={_ => setShouldSearchedModalBeOpen(true)}>
+      <IconButton type="submit" className={classes.iconButton} aria-label="search"  onClick={async () => await searchEvents()}>
         <SearchIcon />
       </IconButton>
-      <SearchPerformersResultsModal 
-        query={query}
-        isOpen={shouldSearchedModalBeOpen}
-        handleModalClose={closeSearchModal}
-      />
     </Paper>
   )
 
