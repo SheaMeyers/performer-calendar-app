@@ -17,7 +17,7 @@ export const getEvents = async (keyword: string, hexColor: string): Promise<Even
         response.data._embedded.events.forEach((event: any): void => {
             events.push({
                 id: event.id,
-                title: event.name,
+                title: keyword,
                 start: event.dates.start.dateTime,
                 end: event.dates.start.dateTime.split('T')[0] + 'T23:59:59',
                 hexColor,
