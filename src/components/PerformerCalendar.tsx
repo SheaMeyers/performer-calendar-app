@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent'
 import { ReduxState } from "../redux"
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Performer, Event } from '../interfaces'
+import Agenda from './Agenda'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,6 +66,14 @@ const PerformerCalendar = () => {
                     tooltipAccessor={eventTooltipGetter}
                     eventPropGetter={eventStyleGetter}
                     onSelectEvent={handleOnSelectEvent}
+
+                    views={{
+                        week: true,
+                        month: true,
+                        day: true,
+                        agenda: Agenda
+                      }}
+                    
                 />
             </CardContent>
         </Card>
