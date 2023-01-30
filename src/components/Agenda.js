@@ -67,14 +67,15 @@ function Agenda({
         <tr
           key={dayKey + '_' + idx}
           className={userProps.className}
-          style={userProps.style}
+          style={{...userProps.style, cursor: 'pointer'}}
+          onClick={() => window.open(event.url, "_blank")}
         >
-          {first}
-          <td className="rbc-agenda-time-cell">{timeRangeLabel(day, event)}</td>
-          <td className="rbc-agenda-event-cell">
-            {Event ? <Event event={event} title={title} /> : title}
-          </td>
-          <td>Put location here</td>
+            {first}
+            <td className="rbc-agenda-time-cell">{timeRangeLabel(day, event)}</td>
+            <td className="rbc-agenda-event-cell">
+              {Event ? <Event event={event} title={title} /> : title}
+            </td>
+            <td>{event.location}</td>
         </tr>
       )
     }, [])
@@ -166,7 +167,7 @@ function Agenda({
                   {messages.time}
                 </th>
                 <th className="rbc-header">{messages.event}</th>
-                <th>The location</th>
+                <th className="rbc-header">Location</th>
               </tr>
             </thead>
           </table>
@@ -221,7 +222,7 @@ Agenda.navigate = (date, action, { length = Agenda.defaultProps.length }) => {
 }
 
 Agenda.title = (date, options) => {
-  return 'the title'
+  return 'Agenda'
 }
 
 export default Agenda

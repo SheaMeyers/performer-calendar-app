@@ -18,6 +18,7 @@ export interface Event {
     end: string | Date
     hexColor: string
     url: string
+    location: string
     tooltip?: string
     border?: string
 }
