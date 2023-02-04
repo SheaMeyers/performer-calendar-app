@@ -9,8 +9,20 @@ import { navigate } from './utils/constants'
 import * as dates from './utils/dates'
 import { inRange } from './utils/eventLevels'
 import { isSelected } from './utils/selection'
+import { Event } from '../interfaces'
 
-function Agenda({
+interface AgendaInterface {
+  selected: any
+  getters: any
+  accessors: any
+  localizer: any
+  components: any
+  length: number
+  date: any
+  events: Event[]
+}
+
+const Agenda = ({
   selected,
   getters,
   accessors,
@@ -19,28 +31,28 @@ function Agenda({
   length,
   date,
   events,
-}) {
-  const headerRef = useRef(null)
-  const dateColRef = useRef(null)
-  const timeColRef = useRef(null)
-  const contentRef = useRef(null)
-  const tbodyRef = useRef(null)
+}: AgendaInterface) => {
+  const headerRef = useRef<HTMLTableElement>(null)
+  const dateColRef = useRef<HTMLTableCellElement>(null)
+  const timeColRef = useRef<HTMLTableCellElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const tbodyRef = useRef<HTMLTableSectionElement>(null)
 
   useEffect(() => {
     _adjustHeader()
   })
 
-  const renderDay = (day, events, dayKey) => {
+  const renderDay = (day: any, events: Event[], dayKey: any) => {
     const { event: Event, date: AgendaDate } = components
 
     events = events.filter(e =>
       inRange(e, dates.startOf(day, 'day'), dates.endOf(day, 'day'), accessors)
     )
 
-    return events.map((event, idx) => {
-      let title = accessors.title(event)
-      let end = accessors.end(event)
-      let start = accessors.start(event)
+    return events.map((event: Event, idx) => {
+      const title = accessors.title(event)
+      const end = accessors.end(event)
+      const start = accessors.start(event)
 
       const userProps = getters.eventProp(
         event,
@@ -49,8 +61,8 @@ function Agenda({
         isSelected(event, selected)
       )
 
-      let dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat')
-      let first =
+      const dateLabel = idx === 0 && localizer.format(day, 'agendaDateFormat')
+      const first =
         idx === 0 ? (
           <td rowSpan={events.length} className="rbc-agenda-date-cell">
             {AgendaDate ? (
@@ -81,13 +93,13 @@ function Agenda({
     }, [])
   }
 
-  const timeRangeLabel = (day, event) => {
+  const timeRangeLabel = (day: any, event: Event) => {
     let labelClass = '',
       TimeComponent = components.time,
       label = localizer.messages.allDay
 
-    let end = accessors.end(event)
-    let start = accessors.start(event)
+    const end = accessors.end(event)
+    const start = accessors.start(event)
 
     if (!accessors.allDay(event)) {
       if (dates.eq(start, end)) {
@@ -116,20 +128,26 @@ function Agenda({
   }
 
   const _adjustHeader = () => {
-    if (!tbodyRef.current) return
+    if (
+      !tbodyRef.current ||
+      !tbodyRef.current.firstChild ||
+      !contentRef.current ||
+      !dateColRef.current ||
+      !timeColRef.current ||
+      !headerRef.current
+    )
+      return;
 
-    let header = headerRef.current
-    let firstRow = tbodyRef.current.firstChild
+    const header = headerRef.current
+    const firstRow = (tbodyRef.current.firstChild as HTMLTableRowElement)
 
-    if (!firstRow) return
-
-    let isOverflowing =
+    const isOverflowing =
       contentRef.current.scrollHeight > contentRef.current.clientHeight
 
-    let _widths = []
-    let widths = _widths
+    let _widths: number[] = []
+    const widths = _widths
 
-    _widths = [getWidth(firstRow.children[0]), getWidth(firstRow.children[1])]
+    _widths = [getWidth((firstRow.children[0] as HTMLElement)), getWidth((firstRow.children[1] as HTMLElement))]
 
     if (widths[0] !== _widths[0] || widths[1] !== _widths[1]) {
       dateColRef.current.style.width = _widths[0] + 'px'
@@ -144,10 +162,10 @@ function Agenda({
     }
   }
 
-  let { messages } = localizer
-  let end = dates.add(date, length, 'day')
+  const { messages } = localizer
+  const end = dates.add(date, length, 'day')
 
-  let range = dates.range(date, end, 'day')
+  const range = dates.range(date, end, 'day')
 
   events = events.filter(event => inRange(event, date, end, accessors))
 
@@ -203,12 +221,12 @@ Agenda.defaultProps = {
   length: 30,
 }
 
-Agenda.range = (start, { length = Agenda.defaultProps.length }) => {
-  let end = dates.add(start, length, 'day')
+Agenda.range = (start: any, { length = Agenda.defaultProps.length }) => {
+  const end = dates.add(start, length, 'day')
   return { start, end }
 }
 
-Agenda.navigate = (date, action, { length = Agenda.defaultProps.length }) => {
+Agenda.navigate = (date: any, action: any, { length = Agenda.defaultProps.length }) => {
   switch (action) {
     case navigate.PREVIOUS:
       return dates.add(date, -length, 'day')
@@ -221,7 +239,7 @@ Agenda.navigate = (date, action, { length = Agenda.defaultProps.length }) => {
   }
 }
 
-Agenda.title = (date, options) => {
+Agenda.title = (date: any, options: any) => {
   return 'Agenda'
 }
 
