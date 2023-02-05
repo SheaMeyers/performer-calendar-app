@@ -12,18 +12,19 @@ export const TICKETMASTER_APIKEY = 'OIcjO8xAGvyfG7rv47wVPnh5O3IdCO4G'
 
 export const getEvents = async (keyword: string, hexColor: string): Promise<Event[]> => {
     const events: Event[] = []
-    try {
-        const response = await axios.get(`${TICKETMASTER_ENDPOINT}events.json?keyword=${keyword}&apikey=${TICKETMASTER_APIKEY}`)
-        response.data._embedded.events.forEach((event: any): void => {
+    const response = await axios.get(`${TICKETMASTER_ENDPOINT}events.json?keyword=${keyword}&apikey=${TICKETMASTER_APIKEY}`)
+    response.data._embedded.events.forEach((event: any): void => {
+        try{
             events.push({
                 id: event.id,
                 title: keyword,
                 start: event.dates.start.dateTime,
                 end: event.dates.start.dateTime.split('T')[0] + 'T23:59:59',
                 hexColor,
-                url: event.url
+                url: event.url,
+                location: event._embedded.venues[0].city.name + ', ' + event._embedded.venues[0].country.name
             })
-        })
-    } catch (e) { }
+        } catch (e) {}
+    })
     return events
 }
