@@ -29,25 +29,20 @@ const MILLI = {
 
 const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-export function monthsInYear(year) {
-  let date = new Date(year, 0, 1)
 
-  return MONTHS.map(i => dates.month(date, i))
-}
-
-export function firstVisibleDay(date, localizer) {
+export function firstVisibleDay(date: Date, localizer: any) {
   let firstOfMonth = dates.startOf(date, 'month')
 
   return dates.startOf(firstOfMonth, 'week', localizer.startOfWeek())
 }
 
-export function lastVisibleDay(date, localizer) {
+export function lastVisibleDay(date: Date, localizer: any) {
   let endOfMonth = dates.endOf(date, 'month')
 
   return dates.endOf(endOfMonth, 'week', localizer.startOfWeek())
 }
 
-export function visibleDays(date, localizer) {
+export function visibleDays(date: Date, localizer: any) {
   let current = firstVisibleDay(date, localizer),
     last = lastVisibleDay(date, localizer),
     days = []
@@ -60,13 +55,13 @@ export function visibleDays(date, localizer) {
   return days
 }
 
-export function ceil(date, unit) {
+export function ceil(date: Date, unit: "milliseconds" | "seconds" | "minutes" | "hours" | "day" | "month" | "year" | "decade" | "century") {
   let floor = dates.startOf(date, unit)
 
   return dates.eq(floor, date) ? floor : dates.add(floor, 1, unit)
 }
 
-export function range(start, end, unit = 'day') {
+export function range(start: Date, end: Date, unit: dates.Unit | undefined = 'day') {
   let current = start,
     days = []
 
@@ -78,7 +73,7 @@ export function range(start, end, unit = 'day') {
   return days
 }
 
-export function merge(date, time) {
+export function merge(date: Date, time: Date) {
   if (time == null && date == null) return null
 
   if (time == null) time = new Date()
@@ -91,7 +86,7 @@ export function merge(date, time) {
   return dates.milliseconds(date, dates.milliseconds(time))
 }
 
-export function eqTime(dateA, dateB) {
+export function eqTime(dateA: Date, dateB: Date) {
   return (
     dates.hours(dateA) === dates.hours(dateB) &&
     dates.minutes(dateA) === dates.minutes(dateB) &&
@@ -99,7 +94,7 @@ export function eqTime(dateA, dateB) {
   )
 }
 
-export function isJustDate(date) {
+export function isJustDate(date: Date) {
   return (
     dates.hours(date) === 0 &&
     dates.minutes(date) === 0 &&
@@ -108,15 +103,7 @@ export function isJustDate(date) {
   )
 }
 
-export function duration(start, end, unit, firstOfWeek) {
-  if (unit === 'day') unit = 'date'
-  return Math.abs(
-    dates[unit](start, undefined, firstOfWeek) -
-      dates[unit](end, undefined, firstOfWeek)
-  )
-}
-
-export function diff(dateA, dateB, unit) {
+export function diff(dateA: Date, dateB: Date, unit: "seconds" | "minutes" | "hours" | "day" | "milliseconds") {
   if (!unit || unit === 'milliseconds') return Math.abs(+dateA - +dateB)
 
   // the .round() handles an edge case
@@ -130,31 +117,36 @@ export function diff(dateA, dateB, unit) {
   )
 }
 
-export function total(date, unit) {
+export function total(date: Date, unit: dates.Unit) {
   let ms = date.getTime(),
     div = 1
 
   switch (unit) {
     case 'week':
       div *= 7
+      break
     case 'day':
       div *= 24
+      break
     case 'hours':
       div *= 60
+      break
     case 'minutes':
       div *= 60
+      break
     case 'seconds':
       div *= 1000
+      break
   }
 
   return ms / div
 }
 
-export function week(date) {
+export function week(date: Date) {
   var d = new Date(date)
   d.setHours(0, 0, 0)
   d.setDate(d.getDate() + 4 - (d.getDay() || 7))
-  return Math.ceil(((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7 + 1) / 7)
+  return Math.ceil(((+d - +(new Date(d.getFullYear(), 0, 1))) / 8.64e7 + 1) / 7)
 }
 
 export function today() {

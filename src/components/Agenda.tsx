@@ -37,9 +37,7 @@ const Agenda = ({
   const contentRef = useRef<HTMLDivElement>(null)
   const tbodyRef = useRef<HTMLTableSectionElement>(null)
 
-  useEffect(() => {
-    _adjustHeader()
-  })
+  useEffect(() => _adjustHeader())
 
   const renderDay = (day: any, events: Event[], dayKey: any) => {
     const { event: Event, date: AgendaDate } = components
