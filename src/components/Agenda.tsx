@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import addClass from 'dom-helpers/addClass'
 import removeClass from 'dom-helpers/removeClass'
@@ -12,13 +11,13 @@ import { isSelected } from './utils/selection'
 import { Event } from '../interfaces'
 
 interface AgendaInterface {
-  selected: any
+  selected: Event[]
   getters: any
   accessors: any
   localizer: any
   components: any
   length: number
-  date: any
+  date: Date
   events: Event[]
 }
 
@@ -204,29 +203,12 @@ const Agenda = ({
   )
 }
 
-Agenda.propTypes = {
-  events: PropTypes.array,
-  date: PropTypes.instanceOf(Date),
-  length: PropTypes.number.isRequired,
-
-  selected: PropTypes.object,
-
-  accessors: PropTypes.object.isRequired,
-  components: PropTypes.object.isRequired,
-  getters: PropTypes.object.isRequired,
-  localizer: PropTypes.object.isRequired,
-}
-
-Agenda.defaultProps = {
-  length: 30,
-}
-
-Agenda.range = (start: any, { length = Agenda.defaultProps.length }) => {
+Agenda.range = (start: Date, { length = 30 }) => {
   const end = dates.add(start, length, 'day')
   return { start, end }
 }
 
-Agenda.navigate = (date: any, action: any, { length = Agenda.defaultProps.length }) => {
+Agenda.navigate = (date: Date, action: string, { length = 30 }) => {
   switch (action) {
     case navigate.PREVIOUS:
       return dates.add(date, -length, 'day')
@@ -239,7 +221,7 @@ Agenda.navigate = (date: any, action: any, { length = Agenda.defaultProps.length
   }
 }
 
-Agenda.title = (date: any, options: any) => {
+Agenda.title = (date: Date, options: any) => {
   return 'Agenda'
 }
 
