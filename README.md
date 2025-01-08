@@ -32,4 +32,4 @@ npm test
 
 ## Live Demo
 
-You can see the project running live at https://ticketmastercalendar.com
+You can see the project running live at https://ticketmaster-calendar.sheameyers.com/
